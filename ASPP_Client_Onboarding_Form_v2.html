@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — AutoSocialPostPro</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#009B8D;--teal-dark:#007A70;--teal-light:#E6F5F4;--teal-mid:#B2E0DC;--text:#1A1A1A;--muted:#666;--hint:#999;--border:#E0E0E0;--bg:#F7F8FA;--white:#FFFFFF;--error:#D93025;--success:#1E8449;--r:10px;--rs:6px;--sh:0 2px 12px rgba(0,0,0,0.06)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.header{background:var(--white);border-bottom:1px solid var(--border);padding:14px 24px;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-icon{width:32px;height:32px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center}
+.logo-icon svg{width:17px;height:17px;fill:white}
+.logo-name{font-size:15px;font-weight:600}
+.header-help{font-size:13px;color:var(--teal);text-decoration:none;font-weight:500}
+.prog-wrap{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px}
+.prog-steps{display:flex;max-width:680px;margin:0 auto}
+.prog-step{flex:1;padding:11px 0;font-size:11px;font-weight:600;color:var(--hint);border-bottom:2px solid transparent;text-align:center;text-transform:uppercase;letter-spacing:.04em;transition:all .2s}
+.prog-step.active{color:var(--teal);border-bottom-color:var(--teal)}
+.prog-step.done{color:var(--success);border-bottom-color:var(--success)}
+.main{max-width:680px;margin:0 auto;padding:32px 24px 80px}
+.page{display:none}.page.active{display:block;animation:fi .25s ease}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.ph{margin-bottom:28px}
+.eyebrow{font-size:11px;font-weight:700;color:var(--teal);letter-spacing:.09em;text-transform:uppercase;margin-bottom:6px}
+.ptitle{font-family:'DM Serif Display',serif;font-size:27px;line-height:1.25;margin-bottom:8px}
+.psub{font-size:15px;color:var(--muted);line-height:1.65}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:22px;margin-bottom:14px;box-shadow:var(--sh)}
+.ctitle{font-size:13px;font-weight:700;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.04em}
+.cdot{width:7px;height:7px;border-radius:50%;background:var(--teal);flex-shrink:0}
+.field{margin-bottom:18px}.field:last-child{margin-bottom:0}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:520px){.fgrid{grid-template-columns:1fr}}
+label{display:block;font-size:13px;font-weight:500;color:var(--text);margin-bottom:5px}
+.req{color:var(--teal)}.lhint{font-weight:400;color:var(--hint);font-size:12px;margin-left:3px}
+input,select,textarea{width:100%;padding:10px 13px;font-size:14px;font-family:'DM Sans',sans-serif;border:1.5px solid var(--border);border-radius:var(--rs);color:var(--text);background:var(--white);transition:border-color .15s,box-shadow .15s;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px rgba(0,155,141,.12)}
+input.err,select.err,textarea.err{border-color:var(--error)}
+textarea{resize:vertical;min-height:88px;line-height:1.5}
+.fhint{font-size:12px;color:var(--hint);margin-top:4px;line-height:1.4}
+.ferr{font-size:12px;color:var(--error);margin-top:4px;display:none}
+.info{background:var(--teal-light);border-left:3px solid var(--teal);border-radius:var(--rs);padding:12px 15px;font-size:13px;color:var(--teal-dark);line-height:1.55;margin-bottom:18px}
+.day-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+@media(max-width:480px){.day-grid{grid-template-columns:repeat(4,1fr)}}
+.day-btn{aspect-ratio:1;border:1.5px solid var(--border);border-radius:var(--rs);background:var(--white);cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--hint);transition:all .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px}
+.day-btn .ds{font-size:14px;font-weight:700}.day-btn .df{font-size:9px;font-weight:400}
+.day-btn:hover{border-color:var(--teal);color:var(--teal)}
+.day-btn.sel{background:var(--teal);border-color:var(--teal);color:white}
+.daycard{border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:14px}
+.daycard-hd{background:var(--teal);color:white;padding:11px 16px;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:space-between}
+.daycard-hd span:last-child{font-size:11px;font-weight:400;opacity:.8}
+.daycard-bd{padding:18px;background:var(--white)}
+.srcgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
+.srcopt{border:1.5px solid var(--border);border-radius:var(--rs);padding:10px 7px;text-align:center;cursor:pointer;transition:all .15s;background:white}
+.srcopt:hover{border-color:var(--teal)}
+.srcopt.sel{border-color:var(--teal);background:var(--teal-light)}
+.srcicon{font-size:19px;margin-bottom:3px}
+.srclabel{font-size:11px;font-weight:700;color:var(--text)}
+.srcdesc{font-size:10px;color:var(--hint);line-height:1.3;margin-top:2px}
+.srcopt.sel .srclabel{color:var(--teal-dark)}
+.rotopts{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.rotopt{flex:1;min-width:80px;border:1.5px solid var(--border);border-radius:var(--rs);padding:8px 10px;text-align:center;cursor:pointer;transition:all .15s;background:white;font-family:'DM Sans',sans-serif}
+.rotopt:hover{border-color:var(--teal)}.rotopt.sel{border-color:var(--teal);background:var(--teal-light)}
+.rotlabel{font-size:12px;font-weight:700;color:var(--text)}.rotdesc{font-size:10px;color:var(--hint);margin-top:1px}
+.rotopt.sel .rotlabel{color:var(--teal-dark)}
+.sublist{margin-top:4px}
+.subitem{border:1px solid var(--border);border-radius:var(--rs);padding:13px 13px 13px 13px;margin-bottom:9px;background:#FAFAFA;position:relative}
+.subgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:480px){.subgrid{grid-template-columns:1fr}}
+.subrem{position:absolute;top:10px;right:10px;width:22px;height:22px;border-radius:50%;border:1px solid #ddd;background:white;cursor:pointer;font-size:13px;color:var(--hint);display:flex;align-items:center;justify-content:center;transition:all .15s}
+.subrem:hover{background:#fee;border-color:var(--error);color:var(--error)}
+.addsub{width:100%;padding:9px;border:1.5px dashed var(--teal-mid);border-radius:var(--rs);background:var(--teal-light);color:var(--teal-dark);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;margin-top:2px}
+.addsub:hover{border-color:var(--teal);background:#d0eeeb}
+.btn-row{display:flex;gap:12px;margin-top:26px}
+.btn-back{padding:11px 22px;border:1.5px solid var(--border);border-radius:var(--rs);background:white;color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.btn-back:hover{border-color:var(--muted);color:var(--text)}
+.btn-next{flex:1;padding:12px 22px;border:none;border-radius:var(--rs);background:var(--teal);color:white;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.btn-next:hover{background:var(--teal-dark)}
+.btn-sub{flex:1;padding:13px 22px;border:none;border-radius:var(--rs);background:var(--teal);color:white;font-size:15px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s}
+.btn-sub:hover{background:var(--teal-dark)}.btn-sub:disabled{background:#ccc;cursor:not-allowed}
+.sumblock{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:12px}
+.sumlabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--hint);margin-bottom:8px}
+.sumrow{font-size:13px;color:var(--text);padding:5px 0;border-bottom:1px solid #f0f0f0;display:flex;gap:8px}
+.sumrow:last-child{border-bottom:none}
+.sk{color:var(--muted);min-width:130px;flex-shrink:0}.sv{font-weight:500}
+.success-wrap{text-align:center;padding:48px 16px}
+.sicon{width:68px;height:68px;background:var(--teal);border-radius:50%;margin:0 auto 22px;display:flex;align-items:center;justify-content:center}
+.sicon svg{width:34px;height:34px;fill:white}
+.stitle{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:10px}
+.stext{font-size:14px;color:var(--muted);max-width:400px;margin:0 auto;line-height:1.7}
+.ssteps{background:var(--teal-light);border-radius:var(--r);padding:18px 20px;margin:22px auto;max-width:400px;text-align:left}
+.ssteps h4{font-size:12px;font-weight:700;color:var(--teal-dark);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.ssteps ol{padding-left:18px}.ssteps li{font-size:13px;color:var(--teal-dark);padding:2px 0}
+.spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:7px}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon"><svg viewBox="0 0 24 24"><path d="M21 3L3 10.53v.98l6.84 2.65L12.48 21h.98L21 3z"/></svg></div>
+    <span class="logo-name">AutoSocialPostPro</span>
+  </div>
+  <a href="mailto:autosocialpostpro@gmail.com" class="header-help">Need help?</a>
+</header>
+
+<div class="prog-wrap">
+  <div class="prog-steps">
+    <div class="prog-step active" id="ps1">Business</div>
+    <div class="prog-step" id="ps2">Accounts</div>
+    <div class="prog-step" id="ps3">Days</div>
+    <div class="prog-step" id="ps4">Content</div>
+    <div class="prog-step" id="ps5">Review</div>
+  </div>
+</div>
+
+<main class="main">
+
+<!-- PAGE 1 -->
+<div class="page active" id="pg1">
+  <div class="ph">
+    <div class="eyebrow">Step 1 of 5</div>
+    <h1 class="ptitle">Tell us about your business</h1>
+    <p class="psub">This helps us write captions that sound exactly like you — professional, accurate, and on-brand.</p>
+  </div>
+  <div class="card">
+    <div class="ctitle"><div class="cdot"></div>Basic information</div>
+    <div class="fgrid">
+      <div class="field">
+        <label>Business name <span class="req">*</span></label>
+        <input type="text" id="business_name" placeholder="e.g. Melbourne Plumbing Co">
+        <div class="ferr" id="e-business_name">Please enter your business name</div>
+      </div>
+      <div class="field">
+        <label>Your email <span class="req">*</span></label>
+        <input type="email" id="contact_email" placeholder="you@yourbusiness.com">
+        <div class="ferr" id="e-contact_email">Please enter a valid email</div>
+      </div>
+    </div>
+    <div class="fgrid">
+      <div class="field">
+        <label>Phone <span class="lhint">(optional)</span></label>
+        <input type="tel" id="business_phone" placeholder="+61 4xx xxx xxx">
+      </div>
+      <div class="field">
+        <label>Business type <span class="req">*</span></label>
+        <select id="business_type">
+          <option value="">Select...</option>
+          <option>Restaurant / Café / Food</option>
+          <option>Retail / Shop</option>
+          <option>Trades / Home Services</option>
+          <option>Health / Beauty / Wellness</option>
+          <option>Professional Services</option>
+          <option>Education / Training</option>
+          <option>Real Estate</option>
+          <option>Fitness / Sport</option>
+          <option>Events / Entertainment</option>
+          <option>Other</option>
+        </select>
+        <div class="ferr" id="e-business_type">Please select your business type</div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><div class="cdot"></div>About your business</div>
+    <div class="field">
+      <label>Describe what your business does <span class="req">*</span></label>
+      <textarea id="business_description" placeholder="e.g. We are a family-run plumbing company in Melbourne's eastern suburbs. We specialise in emergency repairs, bathroom renovations, and hot water systems. We've been serving local families for over 15 years."></textarea>
+      <div class="fhint">Write 2–4 sentences. The more detail, the better your posts will sound.</div>
+      <div class="ferr" id="e-business_description">Please describe your business</div>
+    </div>
+    <div class="fgrid">
+      <div class="field">
+        <label>Who are your customers?</label>
+        <input type="text" id="target_audience" placeholder="e.g. families in Melbourne's east">
+      </div>
+      <div class="field">
+        <label>Words that describe your business</label>
+        <input type="text" id="brand_keywords" placeholder="e.g. reliable, local, affordable">
+        <div class="fhint">Comma separated</div>
+      </div>
+    </div>
+    <div class="field">
+      <label>Email to show in posts <span class="lhint">(if different from above)</span></label>
+      <input type="email" id="caption_cta_email" placeholder="Leave blank to use your email above">
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><div class="cdot"></div>Timing</div>
+    <div class="field">
+      <label>Your timezone <span class="req">*</span></label>
+      <select id="timezone">
+        <option value="">Select your timezone...</option>
+        <optgroup label="Australia">
+          <option value="Australia/Sydney">Sydney / Melbourne / Canberra (AEST/AEDT)</option>
+          <option value="Australia/Brisbane">Brisbane / Queensland (AEST)</option>
+          <option value="Australia/Adelaide">Adelaide / South Australia (ACST/ACDT)</option>
+          <option value="Australia/Perth">Perth / Western Australia (AWST)</option>
+          <option value="Australia/Darwin">Darwin / Northern Territory (ACST)</option>
+        </optgroup>
+        <optgroup label="India">
+          <option value="Asia/Kolkata">India (IST)</option>
+        </optgroup>
+        <optgroup label="Other">
+          <option value="Asia/Dubai">Dubai (GST)</option>
+          <option value="Europe/London">London (GMT/BST)</option>
+          <option value="America/New_York">New York (EST/EDT)</option>
+          <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+        </optgroup>
+      </select>
+      <div class="ferr" id="e-timezone">Please select your timezone</div>
+      <div class="fhint">Your posts will go out at 6pm in this timezone every posting day.</div>
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn-next" onclick="go(2)">Continue — Your social accounts →</button>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="pg2">
+  <div class="ph">
+    <div class="eyebrow">Step 2 of 5</div>
+    <h1 class="ptitle">Your social media accounts</h1>
+    <p class="psub">We post directly into your own Facebook and Instagram — you stay in full control of your business identity.</p>
+  </div>
+  <div class="info"><strong>No technical knowledge needed.</strong> Just give us your page name and Instagram handle. We handle everything else behind the scenes.</div>
+  <div class="card">
+    <div class="ctitle"><div class="cdot"></div>Facebook</div>
+    <div class="field">
+      <label>Your Facebook Page name <span class="req">*</span></label>
+      <input type="text" id="fb_page_name" placeholder="e.g. Melbourne Plumbing Co">
+      <div class="fhint">This is your business page name on Facebook — not your personal profile name.</div>
+      <div class="ferr" id="e-fb_page_name">Please enter your Facebook Page name</div>
+    </div>
+    <div class="field">
+      <label>Link to your Facebook Page <span class="lhint">(optional)</span></label>
+      <input type="text" id="facebook_page_url" placeholder="e.g. facebook.com/MelbournePlumbingCo">
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><div class="cdot"></div>Instagram</div>
+    <div class="field">
+      <label>Your Instagram handle <span class="req">*</span></label>
+      <input type="text" id="instagram_url" placeholder="e.g. @melbourneplumbing">
+      <div class="fhint">Must be a Business or Creator account (not a personal account). Not sure? We'll check for you.</div>
+      <div class="ferr" id="e-instagram_url">Please enter your Instagram handle</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><div class="cdot"></div>One small step we need from you</div>
+    <div class="info" style="margin-bottom:0;">After you submit this form, we will email you one simple instruction. It takes about 2 minutes and involves adding our team email to your Facebook Page so we can post on your behalf. <strong>We'll guide you step by step with screenshots.</strong></div>
+  </div>
+  <div class="btn-row">
+    <button class="btn-back" onclick="go(1)">← Back</button>
+    <button class="btn-next" onclick="go(3)">Continue — Choose posting days →</button>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="pg3">
+  <div class="ph">
+    <div class="eyebrow">Step 3 of 5</div>
+    <h1 class="ptitle">Which days do you want to post?</h1>
+    <p class="psub">Tap the days you want your business to appear on Instagram and Facebook each week.</p>
+  </div>
+  <div class="card">
+    <div class="ctitle"><div class="cdot"></div>Select your posting days</div>
+    <div class="day-grid">
+      <button class="day-btn" data-day="monday" onclick="toggleDay(this)"><span class="ds">M</span><span class="df">Mon</span></button>
+      <button class="day-btn" data-day="tuesday" onclick="toggleDay(this)"><span class="ds">T</span><span class="df">Tue</span></button>
+      <button class="day-btn" data-day="wednesday" onclick="toggleDay(this)"><span class="ds">W</span><span class="df">Wed</span></button>
+      <button class="day-btn" data-day="thursday" onclick="toggleDay(this)"><span class="ds">T</span><span class="df">Thu</span></button>
+      <button class="day-btn" data-day="friday" onclick="toggleDay(this)"><span class="ds">F</span><span class="df">Fri</span></button>
+      <button class="day-btn" data-day="saturday" onclick="toggleDay(this)"><span class="ds">S</span><span class="df">Sat</span></button>
+      <button class="day-btn" data-day="sunday" onclick="toggleDay(this)"><span class="ds">S</span><span class="df">Sun</span></button>
+    </div>
+    <div class="fhint" style="margin-top:10px;">Most businesses start with 3–5 days. You can always change this later.</div>
+    <div class="ferr" id="e-days" style="margin-top:6px;">Please select at least one day</div>
+  </div>
+  <div class="card">
+    <div class="ctitle"><div class="cdot"></div>Your service plan</div>
+    <select id="tier">
+      <option value="Starter">Starter — we source all images automatically (no photos needed from you)</option>
+      <option value="Growth">Growth — mix of your own photos and automatically sourced images</option>
+      <option value="Premium">Premium — your full photo library with detailed category organisation</option>
+    </select>
+    <div class="fhint" style="margin-top:6px;">Not sure? Choose Starter — you can upgrade anytime.</div>
+  </div>
+  <div class="btn-row">
+    <button class="btn-back" onclick="go(2)">← Back</button>
+    <button class="btn-next" onclick="go(4)">Continue — What to post →</button>
+  </div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="pg4">
+  <div class="ph">
+    <div class="eyebrow">Step 4 of 5</div>
+    <h1 class="ptitle">What should we post each day?</h1>
+    <p class="psub">For each day, choose a topic and tell us about your photos. The more detail you give, the more personalised your posts will be.</p>
+  </div>
+  <div class="info"><strong>No photos yet?</strong> Choose "Find photos for me" and we'll source professional images automatically. You can always add your own photos later by dropping them into your Google Drive folder — we'll set that up for you.</div>
+  <div id="daycards"></div>
+  <div class="btn-row">
+    <button class="btn-back" onclick="go(3)">← Back</button>
+    <button class="btn-next" onclick="go(5)">Continue — Review →</button>
+  </div>
+</div>
+
+<!-- PAGE 5 -->
+<div class="page" id="pg5">
+  <div class="ph">
+    <div class="eyebrow">Step 5 of 5</div>
+    <h1 class="ptitle">Review your setup</h1>
+    <p class="psub">Everything look right? Go back to change anything before submitting.</p>
+  </div>
+  <div id="review"></div>
+  <div class="card">
+    <div class="ctitle"><div class="cdot"></div>What happens after you submit</div>
+    <div style="font-size:14px;color:var(--muted);line-height:1.9;">
+      ✅ &nbsp;We set up your dedicated account (within 1 business day)<br>
+      ✅ &nbsp;We email you one simple step to connect your Facebook Page<br>
+      ✅ &nbsp;We create your Google Drive photo folder and send you the link<br>
+      ✅ &nbsp;Your posts start going out automatically within 7 days<br>
+      ✅ &nbsp;You drop photos into your Google Drive folder anytime — we handle the rest
+    </div>
+  </div>
+  <div class="btn-row">
+    <button class="btn-back" onclick="go(4)">← Back</button>
+    <button class="btn-sub" id="subbtn" onclick="submitForm()">Submit and get started →</button>
+  </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="page" id="pgsuccess">
+  <div class="success-wrap">
+    <div class="sicon"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></div>
+    <h2 class="stitle">You're all set!</h2>
+    <p class="stext">We've received your details. Our team will be in touch within 1 business day to get everything configured.</p>
+    <div class="ssteps">
+      <h4>What happens next</h4>
+      <ol>
+        <li>We set up your dedicated account (today)</li>
+        <li>We email you one simple Facebook step</li>
+        <li>We create and share your Google Drive folder</li>
+        <li>Your posts go live automatically within 7 days</li>
+      </ol>
+    </div>
+    <p style="font-size:13px;color:var(--hint);">Questions? <a href="mailto:autosocialpostpro@gmail.com" style="color:var(--teal);">autosocialpostpro@gmail.com</a></p>
+  </div>
+</div>
+
+</main>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzqmxr1kfyF_iYPIIx4gCbBrx7Z2ifgRZsfoYazRQcxEkc0D-H-1skScKD56G9AVlaN/exec';
+const CATS = ['Product Highlight','Service Showcase','Educational Tip','Behind the Scenes','Promotion / Special Offer','Customer Story / Testimonial','Team Spotlight','How It Works','Seasonal / Event','Fun / Lighthearted'];
+const DAYS_FULL = {monday:'Monday',tuesday:'Tuesday',wednesday:'Wednesday',thursday:'Thursday',friday:'Friday',saturday:'Saturday',sunday:'Sunday'};
+const DAY_ORDER = ['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
+let selDays = [], cur = 1, subCounts = {};
+
+function go(n) {
+  if(n > cur && !validate(cur)) return;
+  if(n===4) buildDaycards();
+  if(n===5) buildReview();
+  document.querySelector('.page.active').classList.remove('active');
+  document.getElementById('pg'+(n==='success'?'success':n)).classList.add('active');
+  for(let i=1;i<=5;i++){
+    const el=document.getElementById('ps'+i);
+    el.classList.remove('active','done');
+    if(i<n) el.classList.add('done');
+    else if(i===n) el.classList.add('active');
+  }
+  cur=n; window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function validate(n) {
+  let ok=true;
+  const req={1:['business_name','contact_email','business_type','business_description','timezone'],2:['fb_page_name','instagram_url'],3:[]};
+  (req[n]||[]).forEach(id=>{
+    const el=document.getElementById(id), er=document.getElementById('e-'+id);
+    if(!el||!el.value.trim()){if(el)el.classList.add('err');if(er)er.style.display='block';ok=false;}
+    else{el.classList.remove('err');if(er)er.style.display='none';}
+  });
+  if(n===3){
+    const e=document.getElementById('e-days');
+    if(selDays.length===0){e.style.display='block';ok=false;}else{e.style.display='none';}
+  }
+  return ok;
+}
+
+function toggleDay(btn){
+  const d=btn.dataset.day; btn.classList.toggle('sel');
+  if(btn.classList.contains('sel')){if(!selDays.includes(d))selDays.push(d);}
+  else{selDays=selDays.filter(x=>x!==d);}
+}
+
+function buildDaycards(){
+  const c=document.getElementById('daycards');
+  const ordered=DAY_ORDER.filter(d=>selDays.includes(d));
+  if(!ordered.length){c.innerHTML='<div class="info">No days selected. Please go back and select at least one day.</div>';return;}
+  const catOpts=CATS.map(x=>`<option>${x}</option>`).join('');
+  c.innerHTML=ordered.map(day=>`
+  <div class="daycard" id="dc-${day}">
+    <div class="daycard-hd"><span>${DAYS_FULL[day]}</span><span>What gets posted on this day</span></div>
+    <div class="daycard-bd">
+      <div class="field">
+        <label>Topic for ${DAYS_FULL[day]} posts <span class="req">*</span></label>
+        <select id="cat-${day}"><option value="">Choose a topic...</option>${catOpts}</select>
+      </div>
+      <div class="field">
+        <label>Where do the photos come from?</label>
+        <div class="srcgrid">
+          <div class="srcopt sel" id="so-${day}-stock" onclick="selSrc('${day}','stock')"><div class="srcicon">🔍</div><div class="srclabel">Find for me</div><div class="srcdesc">Professional stock photos sourced automatically</div></div>
+          <div class="srcopt" id="so-${day}-own" onclick="selSrc('${day}','own')"><div class="srcicon">📁</div><div class="srclabel">My own photos</div><div class="srcdesc">You upload to a Google Drive folder we create for you</div></div>
+          <div class="srcopt" id="so-${day}-ai" onclick="selSrc('${day}','ai')"><div class="srcicon">🤖</div><div class="srclabel">AI illustrations</div><div class="srcdesc">Custom branded illustrations generated automatically</div></div>
+        </div>
+      </div>
+      <div id="kw-row-${day}" class="field">
+        <label>Keywords to help find photos <span class="lhint">(optional)</span></label>
+        <input type="text" id="kw-${day}" placeholder="e.g. plumbing tools, pipes, tradesman">
+        <div class="fhint">Comma separated — helps us find the most relevant images for your business</div>
+      </div>
+      <div id="own-section-${day}" style="display:none;">
+        <div class="field">
+          <label>How should we rotate through your photos and topics?</label>
+          <div class="rotopts">
+            <div class="rotopt sel" id="ro-${day}-sequential" onclick="selRot('${day}','sequential')"><div class="rotlabel">In order</div><div class="rotdesc">Topic 1 → 2 → 3 → repeat</div></div>
+            <div class="rotopt" id="ro-${day}-random" onclick="selRot('${day}','random')"><div class="rotlabel">Random</div><div class="rotdesc">Mix it up each week</div></div>
+            <div class="rotopt" id="ro-${day}-weighted" onclick="selRot('${day}','weighted')"><div class="rotlabel">Prioritised</div><div class="rotdesc">Show top topics more often</div></div>
+          </div>
+        </div>
+        <div class="field">
+          <label>Add your specific sub-topics <span class="lhint">(optional)</span></label>
+          <div class="fhint" style="margin-bottom:9px;">For example: if your topic is "Product Highlight", your sub-topics might be "Dosas → Plain Dosas", "Dosas → Masala Dosas", "Curries → Vegetarian" etc. Each sub-topic gets its own folder in your Google Drive.</div>
+          <div class="sublist" id="sl-${day}"></div>
+          <button class="addsub" onclick="addSub('${day}')">+ Add a sub-topic</button>
+        </div>
+      </div>
+    </div>
+  </div>`).join('');
+}
+
+function selSrc(day,src){
+  ['stock','own','ai'].forEach(s=>document.getElementById('so-'+day+'-'+s).classList.toggle('sel',s===src));
+  document.getElementById('kw-row-'+day).style.display=src==='stock'?'block':'none';
+  document.getElementById('own-section-'+day).style.display=src==='own'?'block':'none';
+}
+
+function getSrc(day){
+  for(const s of['stock','own','ai']){if(document.getElementById('so-'+day+'-'+s)?.classList.contains('sel'))return s;}
+  return 'stock';
+}
+
+function selRot(day,mode){
+  ['sequential','random','weighted'].forEach(m=>document.getElementById('ro-'+day+'-'+m)?.classList.toggle('sel',m===mode));
+}
+
+function getRot(day){
+  for(const m of['sequential','random','weighted']){if(document.getElementById('ro-'+day+'-'+m)?.classList.contains('sel'))return m;}
+  return 'sequential';
+}
+
+function addSub(day){
+  subCounts[day]=(subCounts[day]||0)+1;
+  const id=`si-${day}-${subCounts[day]}`, sl=document.getElementById('sl-'+day);
+  const div=document.createElement('div'); div.className='subitem'; div.id=id;
+  div.innerHTML=`
+    <button class="subrem" onclick="document.getElementById('${id}').remove()" title="Remove">×</button>
+    <div class="subgrid">
+      <div class="field" style="margin-bottom:0;"><label>Category <span class="lhint">(e.g. Dosas)</span></label><input type="text" id="${id}-l1" placeholder="e.g. Dosas"></div>
+      <div class="field" style="margin-bottom:0;"><label>Sub-category <span class="lhint">(e.g. Plain Dosas)</span></label><input type="text" id="${id}-l2" placeholder="e.g. Plain Dosas (optional)"></div>
+    </div>
+    <div class="field" style="margin-top:10px;margin-bottom:0;">
+      <label>Keywords if folder is empty <span class="lhint">(optional)</span></label>
+      <input type="text" id="${id}-kw" placeholder="e.g. plain dosa south indian restaurant food">
+    </div>`;
+  sl.appendChild(div);
+}
+
+function getSubs(day){
+  const sl=document.getElementById('sl-'+day); if(!sl)return[];
+  return [...sl.querySelectorAll('.subitem')].map(item=>{
+    const id=item.id;
+    const l1=document.getElementById(id+'-l1')?.value?.trim()||'';
+    const l2=document.getElementById(id+'-l2')?.value?.trim()||'';
+    const kw=document.getElementById(id+'-kw')?.value?.trim()||'';
+    return l1?{level1:l1,level2:l2,fallback_keywords:kw,image_source:getSrc(day)}:null;
+  }).filter(Boolean);
+}
+
+function buildReview(){
+  const ordered=DAY_ORDER.filter(d=>selDays.includes(d));
+  const dhtml=ordered.map(day=>{
+    const cat=document.getElementById('cat-'+day)?.value||'Not set';
+    const src={stock:'Stock photos (auto)',own:'Your own photos',ai:'AI illustrations'}[getSrc(day)];
+    const subs=getSubs(day);
+    const subHtml=subs.length?subs.map(s=>`<br>&nbsp;&nbsp;↳ ${s.level1}${s.level2?' → '+s.level2:''}`).join(''):'';
+    return `<div class="sumrow"><span class="sk">${DAYS_FULL[day]}</span><span class="sv">${cat}${subHtml}<br><span style="font-size:11px;color:#999">${src}</span></span></div>`;
+  }).join('');
+  document.getElementById('review').innerHTML=`
+    <div class="sumblock"><div class="sumlabel">Business</div>
+      <div class="sumrow"><span class="sk">Name</span><span class="sv">${g('business_name')}</span></div>
+      <div class="sumrow"><span class="sk">Email</span><span class="sv">${g('contact_email')}</span></div>
+      <div class="sumrow"><span class="sk">Type</span><span class="sv">${g('business_type')}</span></div>
+      <div class="sumrow"><span class="sk">Timezone</span><span class="sv">${g('timezone')}</span></div>
+      <div class="sumrow"><span class="sk">Plan</span><span class="sv">${g('tier')}</span></div>
+    </div>
+    <div class="sumblock"><div class="sumlabel">Social Accounts</div>
+      <div class="sumrow"><span class="sk">Facebook Page</span><span class="sv">${g('fb_page_name')}</span></div>
+      <div class="sumrow"><span class="sk">Instagram</span><span class="sv">${g('instagram_url')}</span></div>
+    </div>
+    <div class="sumblock"><div class="sumlabel">Content Calendar (${ordered.length} day${ordered.length>1?'s':''})</div>${dhtml||'<div class="sumrow"><span class="sv" style="color:#999">No days configured</span></div>'}</div>`;
+}
+
+function g(id){return document.getElementById(id)?.value?.trim()||'—';}
+
+async function submitForm(){
+  const btn=document.getElementById('subbtn');
+  btn.innerHTML='<span class="spinner"></span>Submitting...'; btn.disabled=true;
+  const pd={};
+  DAY_ORDER.forEach(day=>{
+    if(!selDays.includes(day)){pd[day]={active:false};return;}
+    pd[day]={active:true,category:document.getElementById('cat-'+day)?.value||'',
+      image_source:getSrc(day),fallback_keywords:document.getElementById('kw-'+day)?.value?.trim()||'',
+      rotation_mode:getRot(day),caption_style:document.getElementById('cat-'+day)?.value||'',
+      subcategories:getSubs(day)};
+  });
+  const payload={
+    business_name:g('business_name'),contact_email:g('contact_email'),
+    business_phone:g('business_phone'),business_type:g('business_type'),
+    business_description:g('business_description'),target_audience:g('target_audience'),
+    brand_keywords:g('brand_keywords'),caption_cta_email:g('caption_cta_email')||g('contact_email'),
+    timezone:g('timezone'),tier:g('tier'),fb_page_name:g('fb_page_name'),
+    facebook_page_url:g('facebook_page_url'),instagram_url:g('instagram_url'),
+    posting_days:pd,submitted_at:new Date().toISOString()
+  };
+  try{
+    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    document.querySelector('.page.active').classList.remove('active');
+    document.getElementById('pgsuccess').classList.add('active');
+    document.querySelector('.prog-wrap').style.display='none';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(err){
+    btn.innerHTML='Submit and get started →'; btn.disabled=false;
+    alert('Something went wrong. Please try again or email autosocialpostpro@gmail.com');
+  }
+}
+</script>
+</body>
+</html>
