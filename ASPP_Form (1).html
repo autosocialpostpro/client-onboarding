@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — AutoSocialPostPro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#1648FF;--blue-dim:#E8EEFF;--blue-dark:#0F35CC;
+  --cream:#FFFAF4;--cream-dark:#F5EFE6;--ink:#0F0E17;
+  --ink-mid:#4A4860;--ink-light:#9896A8;--border:#E4DFD6;
+  --white:#FFFFFF;--green:#16A34A;--red:#DC2626;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,250,244,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px;height:64px;display:flex;align-items:center;justify-content:space-between;}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-mark{width:34px;height:34px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;color:white}
+.nav-name{font-size:15px;font-weight:600;color:var(--ink);letter-spacing:-0.3px}
+.nav-back{font-size:13px;color:var(--ink-light);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color 0.15s}
+.nav-back:hover{color:var(--blue)}
+
+/* LAYOUT */
+.layout{display:flex;min-height:100vh;padding-top:64px}
+
+/* SIDEBAR */
+.sidebar{width:300px;flex-shrink:0;background:var(--ink);padding:44px 32px;position:fixed;top:64px;left:0;bottom:0;display:flex;flex-direction:column;overflow-y:auto;z-index:100}
+.sidebar-brand{display:flex;align-items:center;gap:10px;margin-bottom:44px}
+.sidebar-mark{width:30px;height:30px;background:var(--blue);border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:12px;color:white}
+.sidebar-name{font-size:13px;font-weight:600;color:white}
+.steps-list{flex:1}
+.step-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:24px}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;transition:all 0.2s}
+.step-done .step-dot{background:var(--blue);color:white}
+.step-active .step-dot{background:white;color:var(--ink)}
+.step-upcoming .step-dot{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.2)}
+.step-label{padding-top:3px}
+.step-name{font-size:13px;font-weight:600;transition:color 0.2s}
+.step-done .step-name{color:rgba(255,255,255,0.4)}
+.step-active .step-name{color:white}
+.step-upcoming .step-name{color:rgba(255,255,255,0.2)}
+.step-sub{font-size:11px;color:rgba(255,255,255,0.2);margin-top:2px}
+.step-connector{width:1px;height:16px;background:rgba(255,255,255,0.08);margin-left:14px;margin-top:-12px;margin-bottom:8px}
+.progress-bar{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:32px;overflow:hidden}
+.progress-fill{height:100%;background:var(--blue);border-radius:2px;transition:width 0.4s ease}
+
+/* MAIN */
+.main{margin-left:300px;flex:1;padding:52px 64px;min-height:calc(100vh - 64px)}
+.step-header{margin-bottom:36px}
+.step-tag{font-size:10px;font-weight:700;color:var(--blue);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.step-tag::before{content:'';width:18px;height:2px;background:var(--blue)}
+.step-title{font-family:var(--serif);font-size:30px;line-height:1.15;letter-spacing:-0.5px;color:var(--ink);margin-bottom:8px}
+.step-desc{font-size:14px;color:var(--ink-mid);line-height:1.65}
+
+/* FORM ELEMENTS */
+.form-group{margin-bottom:22px}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px}
+.form-label-opt{font-weight:400;color:var(--ink-light);font-size:12px;margin-left:5px}
+.form-hint{font-size:12px;color:var(--ink-light);margin-top:6px;line-height:1.5}
+.form-error{font-size:12px;color:var(--red);margin-top:5px;font-weight:500}
+.form-input{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:9px;font-size:14px;font-family:var(--sans);color:var(--ink);background:white;transition:border-color 0.15s,box-shadow 0.15s;outline:none}
+.form-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,72,255,0.08)}
+.form-input.err{border-color:var(--red)}
+.form-input::placeholder{color:var(--ink-light)}
+.form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239896A8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;cursor:pointer}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-divider{height:1px;background:var(--border);margin:28px 0}
+textarea.form-input{resize:vertical;min-height:110px}
+
+/* GMAIL INPUT */
+.gmail-wrap{display:flex}
+.gmail-wrap .form-input{border-radius:9px 0 0 9px;border-right:none}
+.gmail-suffix{padding:11px 14px;background:var(--cream-dark);border:1.5px solid var(--border);border-left:none;border-radius:0 9px 9px 0;font-size:13px;color:var(--ink-light);white-space:nowrap;display:flex;align-items:center}
+
+/* PHONE INPUT */
+.phone-wrap{display:flex;gap:0}
+.phone-code{width:120px;flex-shrink:0;border-radius:9px 0 0 9px;border-right:none}
+.phone-num{border-radius:0 9px 9px 0}
+
+/* INFO BOX */
+.info-box{background:var(--blue-dim);border:1px solid rgba(22,72,255,0.15);border-radius:10px;padding:14px 18px;display:flex;gap:12px;align-items:flex-start;margin-bottom:20px}
+.info-box.amber{background:#FFFBEB;border-color:#FDE68A}
+.info-box.green{background:#F0FDF4;border-color:#BBF7D0}
+.info-box.red{background:#FEF2F2;border-color:#FECACA}
+.info-box-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.info-box-text{font-size:13px;color:var(--ink-mid);line-height:1.6}
+.info-box-text strong{color:var(--ink)}
+.info-box.amber .info-box-text{color:#78350F}
+.info-box.amber .info-box-text strong{color:#92400E}
+.info-box.green .info-box-text{color:#166534}
+.info-box.green .info-box-text strong{color:#15803D}
+
+/* PLATFORM CARDS */
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:8px}
+.platform-card{border:1.5px solid var(--border);border-radius:12px;padding:18px 14px;cursor:pointer;transition:all 0.15s;text-align:center;background:white;user-select:none}
+.platform-card:hover{border-color:var(--blue)}
+.platform-card.selected{border-color:var(--blue);background:var(--blue-dim)}
+.platform-icon{font-size:24px;margin-bottom:8px}
+.platform-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.platform-sub{font-size:11px;color:var(--ink-light)}
+
+/* DAY CHIPS */
+.days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day-chip{aspect-ratio:1;border:1.5px solid var(--border);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all 0.15s;background:white;user-select:none;font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--ink-mid)}
+.day-chip:hover{border-color:var(--blue)}
+.day-chip.selected{background:var(--blue);border-color:var(--blue);color:white}
+
+/* TIER CARDS */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tier-card{border:1.5px solid var(--border);border-radius:12px;padding:20px;cursor:pointer;transition:all 0.15s;background:white;position:relative}
+.tier-card:hover{border-color:var(--blue)}
+.tier-card.selected{border-color:var(--blue);background:var(--blue-dim)}
+.tier-popular{position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--blue);color:white;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;white-space:nowrap}
+.tier-name{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-light);margin-bottom:8px}
+.tier-price{font-family:var(--serif);font-size:26px;color:var(--ink);margin-bottom:4px}
+.tier-setup{font-size:11px;color:var(--ink-light);margin-bottom:12px}
+.tier-feat{font-size:12px;color:var(--ink-mid);display:flex;align-items:flex-start;gap:6px;margin-bottom:4px;line-height:1.4}
+.tier-feat::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;font-size:11px;margin-top:1px}
+
+/* PHOTO SOURCE MULTI-SELECT */
+.photo-sources{display:flex;flex-direction:column;gap:8px}
+.photo-source-item{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1.5px solid var(--border);border-radius:8px;cursor:pointer;transition:all 0.15s;background:white;user-select:none}
+.photo-source-item:hover{border-color:var(--blue)}
+.photo-source-item.selected{border-color:var(--blue);background:var(--blue-dim)}
+.photo-source-item.disabled{opacity:0.45;cursor:not-allowed}
+.photo-source-item.flash{animation:flashRed 0.5s ease}
+@keyframes flashRed{0%,100%{border-color:var(--border);background:white}25%,75%{border-color:var(--red);background:#FEF2F2}}
+.photo-source-check{width:18px;height:18px;border:2px solid var(--border);border-radius:4px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;transition:all 0.15s}
+.photo-source-item.selected .photo-source-check{background:var(--blue);border-color:var(--blue);color:white}
+.photo-source-label{font-size:13px;font-weight:500;color:var(--ink)}
+.photo-source-sub{font-size:11px;color:var(--ink-light);margin-left:auto}
+
+/* PLATFORM COSTS */
+.costs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.cost-item{background:white;border-radius:8px;padding:10px 12px;border:1px solid #D1FAE5}
+.cost-name{font-size:12px;font-weight:600;color:#15803D}
+.cost-role{font-size:11px;color:#6B7280;margin-top:2px}
+
+/* CONTENT DAY CARDS */
+.content-day{background:white;border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
+.content-day-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.content-day-num{width:28px;height:28px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:white;flex-shrink:0}
+.content-day-name{font-size:15px;font-weight:600;color:var(--ink)}
+
+/* AI EXAMPLES */
+.ai-examples{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.ai-example{border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+.ai-example img{width:100%;height:160px;object-fit:cover;display:block}
+.ai-example-label{font-size:11px;color:var(--ink-light);padding:8px 10px;background:var(--cream-dark)}
+
+/* PRICING MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:500;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:white;border-radius:16px;padding:36px;max-width:480px;width:90%;max-height:80vh;overflow-y:auto;position:relative}
+.modal-close{position:absolute;top:16px;right:16px;background:none;border:none;font-size:20px;cursor:pointer;color:var(--ink-light);line-height:1}
+.modal-title{font-family:var(--serif);font-size:22px;color:var(--ink);margin-bottom:6px;letter-spacing:-0.3px}
+.modal-sub{font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.5}
+.modal-currency-select{width:100%;margin-bottom:20px}
+.modal-plan-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:12px}
+.modal-plan-header{background:var(--ink);color:white;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:10px 12px;text-align:center}
+.modal-plan-cell{padding:10px 12px;font-size:13px;text-align:center;border-top:1px solid var(--border);color:var(--ink)}
+.modal-plan-cell:first-child{font-weight:600;background:var(--cream);text-align:left}
+.modal-plan-cell.featured{color:var(--blue);font-weight:600}
+.btn-pricing-info{background:transparent;border:1.5px solid var(--border);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;color:var(--blue);cursor:pointer;font-family:var(--sans);transition:all 0.15s;display:inline-flex;align-items:center;gap:6px;margin-top:12px}
+.btn-pricing-info:hover{border-color:var(--blue);background:var(--blue-dim)}
+
+/* REVIEW */
+.review-section{margin-bottom:24px}
+.review-section-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.review-section-title::before{content:'';width:14px;height:2px;background:var(--blue)}
+.review-row{display:flex;padding:9px 0;border-bottom:1px solid var(--border)}
+.review-row:last-child{border-bottom:none}
+.review-key{font-size:12px;color:var(--ink-light);width:160px;flex-shrink:0;font-weight:500}
+.review-val{font-size:13px;color:var(--ink);font-weight:500;flex:1}
+
+/* NAV BUTTONS */
+.form-nav{display:flex;align-items:center;justify-content:space-between;margin-top:44px;padding-top:22px;border-top:1px solid var(--border)}
+.btn-back{background:transparent;border:none;font-size:14px;font-weight:500;color:var(--ink-light);cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:6px;transition:color 0.15s}
+.btn-back:hover{color:var(--ink)}
+.btn-next{background:var(--blue);color:white;border:none;border-radius:10px;padding:13px 32px;font-size:15px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px}
+.btn-next:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(22,72,255,0.25)}
+
+/* SUCCESS */
+.success{text-align:center;padding:60px 40px}
+.success-icon{width:72px;height:72px;background:#DCFCE7;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 24px}
+.success-title{font-family:var(--serif);font-size:30px;color:var(--ink);margin-bottom:12px;letter-spacing:-0.5px}
+.success-sub{font-size:15px;color:var(--ink-mid);max-width:420px;margin:0 auto 32px;line-height:1.65}
+.next-steps{text-align:left;max-width:440px;margin:0 auto}
+.next-step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.next-step:last-child{border-bottom:none}
+.next-step-num{width:28px;height:28px;background:var(--blue-dim);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--blue);flex-shrink:0}
+.next-step-text{font-size:14px;color:var(--ink-mid);line-height:1.5}
+.next-step-text strong{color:var(--ink)}
+
+/* SUBMITTING */
+.submitting{text-align:center;padding:80px 40px}
+.spinner{width:40px;height:40px;border:3px solid var(--blue-dim);border-top-color:var(--blue);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .sidebar{display:none}
+  .main{margin-left:0;padding:32px 20px}
+  .form-row{grid-template-columns:1fr}
+  .platform-grid{grid-template-columns:1fr 1fr}
+  .days-grid{grid-template-columns:repeat(4,1fr)}
+  .tier-grid{grid-template-columns:1fr}
+  .costs-grid{grid-template-columns:1fr}
+  .ai-examples{grid-template-columns:1fr}
+  .nav{padding:0 20px}
+  .modal-plan-row{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- PRICING MODAL -->
+<div class="modal-overlay" id="pricing-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">Pricing — all currencies</div>
+    <div class="modal-sub">All prices convert live from AUD. India pricing is manually set for local purchasing power.</div>
+    <select class="form-input form-select modal-currency-select" id="modal-currency" onchange="renderModalPrices()">
+      <option value="AUD">🇦🇺 Australia (AUD)</option>
+      <option value="INR">🇮🇳 India (INR) — special pricing</option>
+      <optgroup label="Americas">
+        <option value="USD">🇺🇸 USA (USD)</option>
+        <option value="CAD">🇨🇦 Canada (CAD)</option>
+        <option value="MXN">🇲🇽 Mexico (MXN)</option>
+        <option value="BRL">🇧🇷 Brazil (BRL)</option>
+        <option value="ARS">🇦🇷 Argentina (ARS)</option>
+        <option value="CLP">🇨🇱 Chile (CLP)</option>
+        <option value="COP">🇨🇴 Colombia (COP)</option>
+        <option value="PEN">🇵🇪 Peru (PEN)</option>
+      </optgroup>
+      <optgroup label="Europe">
+        <option value="GBP">🇬🇧 UK (GBP)</option>
+        <option value="EUR">🇪🇺 Europe (EUR)</option>
+        <option value="CHF">🇨🇭 Switzerland (CHF)</option>
+        <option value="SEK">🇸🇪 Sweden (SEK)</option>
+        <option value="NOK">🇳🇴 Norway (NOK)</option>
+        <option value="DKK">🇩🇰 Denmark (DKK)</option>
+        <option value="PLN">🇵🇱 Poland (PLN)</option>
+        <option value="CZK">🇨🇿 Czech Republic (CZK)</option>
+        <option value="HUF">🇭🇺 Hungary (HUF)</option>
+        <option value="RON">🇷🇴 Romania (RON)</option>
+        <option value="TRY">🇹🇷 Turkey (TRY)</option>
+        <option value="RUB">🇷🇺 Russia (RUB)</option>
+        <option value="UAH">🇺🇦 Ukraine (UAH)</option>
+      </optgroup>
+      <optgroup label="Middle East & Africa">
+        <option value="AED">🇦🇪 UAE (AED)</option>
+        <option value="SAR">🇸🇦 Saudi Arabia (SAR)</option>
+        <option value="KWD">🇰🇼 Kuwait (KWD)</option>
+        <option value="QAR">🇶🇦 Qatar (QAR)</option>
+        <option value="BHD">🇧🇭 Bahrain (BHD)</option>
+        <option value="OMR">🇴🇲 Oman (OMR)</option>
+        <option value="JOD">🇯🇴 Jordan (JOD)</option>
+        <option value="ILS">🇮🇱 Israel (ILS)</option>
+        <option value="EGP">🇪🇬 Egypt (EGP)</option>
+        <option value="MAD">🇲🇦 Morocco (MAD)</option>
+        <option value="NGN">🇳🇬 Nigeria (NGN)</option>
+        <option value="KES">🇰🇪 Kenya (KES)</option>
+        <option value="GHS">🇬🇭 Ghana (GHS)</option>
+        <option value="TZS">🇹🇿 Tanzania (TZS)</option>
+        <option value="ZAR">🇿🇦 South Africa (ZAR)</option>
+      </optgroup>
+      <optgroup label="Asia Pacific">
+        <option value="NZD">🇳🇿 New Zealand (NZD)</option>
+        <option value="SGD">🇸🇬 Singapore (SGD)</option>
+        <option value="HKD">🇭🇰 Hong Kong (HKD)</option>
+        <option value="JPY">🇯🇵 Japan (JPY)</option>
+        <option value="KRW">🇰🇷 South Korea (KRW)</option>
+        <option value="TWD">🇹🇼 Taiwan (TWD)</option>
+        <option value="CNY">🇨🇳 China (CNY)</option>
+        <option value="MYR">🇲🇾 Malaysia (MYR)</option>
+        <option value="THB">🇹🇭 Thailand (THB)</option>
+        <option value="IDR">🇮🇩 Indonesia (IDR)</option>
+        <option value="PHP">🇵🇭 Philippines (PHP)</option>
+        <option value="VND">🇻🇳 Vietnam (VND)</option>
+        <option value="PKR">🇵🇰 Pakistan (PKR)</option>
+        <option value="BDT">🇧🇩 Bangladesh (BDT)</option>
+        <option value="LKR">🇱🇰 Sri Lanka (LKR)</option>
+        <option value="NPR">🇳🇵 Nepal (NPR)</option>
+      </optgroup>
+    </select>
+    <div class="modal-plan-row">
+      <div class="modal-plan-header">Plan</div>
+      <div class="modal-plan-header">Starter</div>
+      <div class="modal-plan-header" style="background:var(--blue)">Growth</div>
+      <div class="modal-plan-header">Pro</div>
+    </div>
+    <div class="modal-plan-row">
+      <div class="modal-plan-cell">Monthly</div>
+      <div class="modal-plan-cell" id="m-starter-mo">A$75</div>
+      <div class="modal-plan-cell featured" id="m-growth-mo">A$125</div>
+      <div class="modal-plan-cell" id="m-pro-mo">A$175</div>
+    </div>
+    <div class="modal-plan-row">
+      <div class="modal-plan-cell">Setup fee</div>
+      <div class="modal-plan-cell" id="m-starter-s">A$125</div>
+      <div class="modal-plan-cell featured" id="m-growth-s">A$175</div>
+      <div class="modal-plan-cell" id="m-pro-s">A$275</div>
+    </div>
+    <div id="modal-note" style="font-size:11px;color:var(--ink-light);margin-top:12px;text-align:center"></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="https://autosocialpostpro.github.io">
+    <div class="nav-mark">AS</div>
+    <span class="nav-name">AutoSocialPostPro</span>
+  </a>
+  <a class="nav-back" href="https://autosocialpostpro.github.io">← Back to home</a>
+</nav>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-mark">AS</div>
+      <span class="sidebar-name">AutoSocialPostPro</span>
+    </div>
+    <div class="steps-list" id="steps-list"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </aside>
+  <main class="main" id="main-content"></main>
+</div>
+
+<script>
+// ── CONFIG ─────────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzqmxr1kfyF_iYPIIx4gCbBrx7Z2ifgRZsfoYazRQcxEkc0D-H-1skScKD56G9AVlaN/exec';
+const LANDING_URL     = 'https://autosocialpostpro.github.io';
+const REPO_URL        = 'https://autosocialpostpro.github.io/client-onboarding';
+
+// ── PRICING ────────────────────────────────────────────────
+const AUD_P = {Starter:{mo:75,s:125},Growth:{mo:125,s:175},Pro:{mo:175,s:275}};
+const INR_P = {Starter:{mo:2999,s:4999},Growth:{mo:3999,s:7499},Pro:{mo:5999,s:9999}};
+let fxRates = {usd:0.635,aed:2.33,gbp:0.50,inr:53.0,sgd:0.86,nzd:1.10,cad:0.87};
+
+// Fetch live rates
+fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/aud.json')
+  .then(r=>r.json()).then(d=>{fxRates=d.aud;}).catch(()=>{});
+
+function convertAUD(aud, cur) {
+  if(cur==='AUD') return {sym:'A$', val:aud};
+  if(cur==='INR') return {sym:'₹', val:null}; // manual
+  const sym = {USD:'US$',GBP:'£',AED:'AED ',SGD:'S$',NZD:'NZ$',CAD:'CA$'}[cur]||cur+' ';
+  const rate = fxRates[cur.toLowerCase()]||1;
+  return {sym, val:Math.round(aud*rate)};
+}
+
+function fmtPrice(aud, cur, planKey, type) {
+  if(cur==='INR') {
+    const v = INR_P[planKey][type==='mo'?'mo':'s'];
+    return '₹'+v.toLocaleString('en-IN');
+  }
+  const {sym,val} = convertAUD(aud,cur);
+  return sym+val.toLocaleString('en-US');
+}
+
+function renderModalPrices() {
+  const cur = document.getElementById('modal-currency').value;
+  const plans = ['Starter','Growth','Pro'];
+  const ids   = {Starter:'starter',Growth:'growth',Pro:'pro'};
+  plans.forEach(p=>{
+    document.getElementById(`m-${ids[p]}-mo`).textContent = fmtPrice(AUD_P[p].mo, cur, p, 'mo');
+    document.getElementById(`m-${ids[p]}-s`).textContent  = fmtPrice(AUD_P[p].s,  cur, p, 's');
+  });
+  const note = document.getElementById('modal-note');
+  note.textContent = cur==='INR'
+    ? 'India pricing is fixed for local purchasing power — not converted from AUD.'
+    : cur==='AUD'
+    ? 'Base pricing in AUD. No lock-in contracts.'
+    : `Converted live from AUD. Billing processed in AUD.`;
+}
+
+function openModal() { document.getElementById('pricing-modal').classList.add('open'); }
+function closeModal(){ document.getElementById('pricing-modal').classList.remove('open'); }
+document.getElementById('pricing-modal').addEventListener('click',e=>{if(e.target===e.currentTarget)closeModal();});
+
+// ── FORM STEPS ─────────────────────────────────────────────
+const STEPS=[
+  {name:'Business details',sub:'Who you are'},
+  {name:'Social accounts', sub:'Where you post'},
+  {name:'Schedule & plan', sub:'When & how much'},
+  {name:'Your content',    sub:'What to post'},
+  {name:'Review & submit', sub:'Almost done'},
+];
+
+const BUSINESS_TYPES=['Restaurant / Café / Food','Retail / Shop','Trades / Home Services','Health / Beauty / Wellness','Professional Services','Education / Training','Real Estate','Fitness / Sport','Events / Entertainment','Dog Grooming / Pet Care','Other'];
+const TIMEZONES=['Sydney / Melbourne (AEST/AEDT)','Brisbane / Queensland (AEST)','Adelaide (ACST/ACDT)','Perth (AWST)','Darwin (ACST)','India (IST)','Dubai (GST)','London (GMT/BST)','New York (EST/EDT)','Los Angeles (PST/PDT)'];
+const PLATFORMS=[{id:'facebook',icon:'📘',name:'Facebook Page',sub:'Business page'},{id:'instagram',icon:'📸',name:'Instagram Business',sub:'Business or Creator'},{id:'gbp',icon:'🗺️',name:'Google Business Profile',sub:'Google Maps listing'}];
+const DAYS=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const PLANS=[
+  {key:'Starter',popular:false,features:['12 posts per month','Instagram + Facebook + GBP','AI-written captions','Stock photos + AI illustrations','Monthly post summary']},
+  {key:'Growth', popular:true, features:['20 posts per month','Custom brand voice + captions','Own photos + stock + AI','Up to 4 content categories','Next-day support']},
+  {key:'Pro',    popular:false,features:['Daily posting, fully flexible','Unlimited categories','Own + stock + AI photos','Same-day support','Quarterly strategy check-in']},
+];
+const CONTENT_TOPICS=['Service showcase','How it works','Educational tip','Customer story','Behind the scenes','Promotion / offer','Fun / personality','Weekly wrap'];
+const PHOTO_SOURCES=[
+  {id:'stock', label:'Stock photos',    sub:'Auto-sourced from Unsplash'},
+  {id:'ai',    label:'AI generated',    sub:'Created by GPT-image-1'},
+  {id:'own',   label:'My own photos',   sub:'Uploaded to Google Drive', starterDisabled:true},
+];
+
+// Country codes for phone
+const COUNTRY_CODES=[
+  {c:'AU',n:'Australia',d:'+61'},{c:'IN',n:'India',d:'+91'},{c:'US',n:'USA',d:'+1'},
+  {c:'GB',n:'UK',d:'+44'},{c:'AE',n:'UAE',d:'+971'},{c:'SG',n:'Singapore',d:'+65'},
+  {c:'NZ',n:'New Zealand',d:'+64'},{c:'CA',n:'Canada',d:'+1'},{c:'ZA',n:'South Africa',d:'+27'},
+  {c:'PK',n:'Pakistan',d:'+92'},{c:'BD',n:'Bangladesh',d:'+880'},{c:'LK',n:'Sri Lanka',d:'+94'},
+  {c:'MY',n:'Malaysia',d:'+60'},{c:'PH',n:'Philippines',d:'+63'},{c:'ID',n:'Indonesia',d:'+62'},
+  {c:'TH',n:'Thailand',d:'+66'},{c:'VN',n:'Vietnam',d:'+84'},{c:'HK',n:'Hong Kong',d:'+852'},
+  {c:'JP',n:'Japan',d:'+81'},{c:'KR',n:'South Korea',d:'+82'},{c:'CN',n:'China',d:'+86'},
+  {c:'DE',n:'Germany',d:'+49'},{c:'FR',n:'France',d:'+33'},{c:'IT',n:'Italy',d:'+39'},
+  {c:'ES',n:'Spain',d:'+34'},{c:'NL',n:'Netherlands',d:'+31'},{c:'IE',n:'Ireland',d:'+353'},
+  {c:'SE',n:'Sweden',d:'+46'},{c:'NO',n:'Norway',d:'+47'},{c:'DK',n:'Denmark',d:'+45'},
+  {c:'FI',n:'Finland',d:'+358'},{c:'CH',n:'Switzerland',d:'+41'},{c:'AT',n:'Austria',d:'+43'},
+  {c:'PL',n:'Poland',d:'+48'},{c:'PT',n:'Portugal',d:'+351'},{c:'GR',n:'Greece',d:'+30'},
+  {c:'SA',n:'Saudi Arabia',d:'+966'},{c:'KW',n:'Kuwait',d:'+965'},{c:'QA',n:'Qatar',d:'+974'},
+  {c:'BH',n:'Bahrain',d:'+973'},{c:'OM',n:'Oman',d:'+968'},{c:'EG',n:'Egypt',d:'+20'},
+  {c:'ZW',n:'Zimbabwe',d:'+263'},{c:'KE',n:'Kenya',d:'+254'},{c:'NG',n:'Nigeria',d:'+234'},
+];
+
+// ── STATE ──────────────────────────────────────────────────
+let step=0;
+const F={
+  business_name:'',contact_email:'',phone_code:'+61',phone_number:'',
+  business_type:'',aspp_gmail_prefix:'',timezone:'',business_description:'',
+  target_audience:'',brand_keywords:'',caption_cta_email:'',
+  platforms:[],facebook_page_name:'',facebook_page_url:'',
+  ig_handle:'',ig_url:'',gbp_name:'',gbp_status:'',
+  posting_days:[],tier:'',content:{},
+};
+let errors={};
+
+// ── HELPERS ────────────────────────────────────────────────
+const $=id=>document.getElementById(id);
+const hasFB=()=>F.platforms.includes('facebook');
+const hasIG=()=>F.platforms.includes('instagram');
+const hasGBP=()=>F.platforms.includes('gbp');
+const isIGOnly=()=>hasIG()&&!hasFB();
+
+function esc(s){if(!s)return '';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function togglePlatform(id){
+  const i=F.platforms.indexOf(id);
+  if(i>-1)F.platforms.splice(i,1); else F.platforms.push(id);
+  render();
+}
+function toggleDay(d){
+  const i=F.posting_days.indexOf(d);
+  if(i>-1)F.posting_days.splice(i,1); else F.posting_days.push(d);
+  renderDays();
+}
+function togglePhotoSource(day,id){
+  if(!F.content[day]) F.content[day]={sources:[],topic:'',subtopic:''};
+  const srcs=F.content[day].sources||[];
+  // Starter: own photos disabled
+  if(id==='own'&&F.tier==='Starter'){
+    const el=document.querySelector(`[data-day="${day}"][data-src="own"]`);
+    if(el){el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),600);}
+    // show upgrade tooltip
+    const tip=document.getElementById(`upgrade-tip-${day}`);
+    if(tip){tip.style.display='block';setTimeout(()=>tip.style.display='none',3000);}
+    return;
+  }
+  const i=srcs.indexOf(id);
+  if(i>-1)srcs.splice(i,1); else srcs.push(id);
+  F.content[day].sources=srcs;
+  // re-render just the sources for this day
+  renderDaySources(day);
+}
+function setContent(day,key,val){
+  if(!F.content[day])F.content[day]={sources:[],topic:'',subtopic:''};
+  F.content[day][key]=val;
+}
+
+// ── VALIDATION ─────────────────────────────────────────────
+function validate(){
+  errors={};
+  if(step===0){
+    if(!F.business_name.trim())             errors.business_name='Required';
+    if(!F.contact_email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errors.contact_email='Valid email required';
+    if(!F.business_type)                    errors.business_type='Required';
+    if(!F.timezone)                         errors.timezone='Required';
+    if(!F.business_description.trim())      errors.business_description='Required — helps us write better captions';
+    // Gmail validation — full email format
+    const gp=F.aspp_gmail_prefix.trim();
+    if(!gp)                                              errors.aspp_gmail='Required — please enter your dedicated Gmail address';
+    else if(!gp.endsWith('_aspp@gmail.com'))             errors.aspp_gmail='Must end in _aspp@gmail.com — e.g. joesbakery_aspp@gmail.com';
+    else if(!/^[a-z0-9_.]+_aspp@gmail\.com$/.test(gp)) errors.aspp_gmail='Format: yourbusinessname_aspp@gmail.com (lowercase, no spaces)';
+    else if(gp.replace('_aspp@gmail.com','').length<3)   errors.aspp_gmail='Business name part is too short — use your full business name';
+  }
+  if(step===1){
+    if(F.platforms.length===0)              errors.platforms='Select at least one platform';
+    if(hasFB()&&!F.facebook_page_url.trim()) errors.facebook_page_url='Required — enter your Facebook Page URL';
+    if(hasIG()&&!F.ig_handle.trim())        errors.ig_handle='Required — enter your Instagram handle';
+  }
+  if(step===2){
+    if(F.posting_days.length===0)           errors.posting_days='Select at least one day';
+    if(!F.tier)                             errors.tier='Select a plan to continue';
+  }
+  return Object.keys(errors).length===0;
+}
+
+// ── NAVIGATION ─────────────────────────────────────────────
+function next(){if(!validate()){render();window.scrollTo(0,0);return;}if(step<4){step++;render();window.scrollTo(0,0);}}
+function back(){if(step>0){step--;render();window.scrollTo(0,0);}else window.location.href=LANDING_URL;}
+
+// ── SUBMIT ─────────────────────────────────────────────────
+async function submitForm(){
+  if(!validate()){render();return;}
+  $('main-content').innerHTML=`<div class="submitting"><div class="spinner"></div><div style="font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px">Submitting your details...</div><div style="font-size:14px;color:var(--ink-mid)">This takes just a moment.</div></div>`;
+
+  const postingDaysObj={};
+  F.posting_days.forEach(day=>{
+    const c=F.content[day]||{};
+    postingDaysObj[day.toLowerCase()]={
+      active:true,
+      category:c.topic||'',
+      image_source:(c.sources||[]).join(','),
+      subcategories:c.subtopic?[{level1:c.subtopic}]:[],
+    };
+  });
+
+  const payload={
+    business_name:       F.business_name,
+    contact_email:       F.contact_email,
+    business_phone:      F.phone_code+' '+F.phone_number,
+    business_type:       F.business_type,
+    aspp_gmail:          F.aspp_gmail_prefix,
+    timezone:            F.timezone,
+    business_description:F.business_description,
+    target_audience:     F.target_audience,
+    brand_keywords:      F.brand_keywords,
+    caption_cta_email:   F.caption_cta_email||F.contact_email,
+    platforms:           F.platforms,
+    fb_page_name:        F.facebook_page_name,
+    facebook_page_url:   F.facebook_page_url,
+    ig_handle:           F.ig_handle,
+    instagram_url:       F.ig_url,
+    gbp_name:            F.gbp_name,
+    gbp_status:          F.gbp_status,
+    posting_days:        postingDaysObj,
+    tier:                F.tier,
+  };
+
+  try{
+    await fetch(APPS_SCRIPT_URL,{method:'POST',body:JSON.stringify(payload)});
+  }catch(e){console.error(e);}
+  renderSuccess();
+}
+
+// ── SIDEBAR ────────────────────────────────────────────────
+function renderSidebar(){
+  $('steps-list').innerHTML=STEPS.map((s,i)=>{
+    const st=i<step?'step-done':i===step?'step-active':'step-upcoming';
+    return `<div class="step-item ${st}">
+      <div class="step-dot">${i<step?'✓':i+1}</div>
+      <div class="step-label"><div class="step-name">${s.name}</div><div class="step-sub">${s.sub}</div></div>
+    </div>${i<STEPS.length-1?'<div class="step-connector"></div>':''}`;
+  }).join('');
+  $('progress-fill').style.width=`${((step+1)/STEPS.length)*100}%`;
+}
+
+// ── STEP RENDERERS ──────────────────────────────────────────
+
+function renderStep0(){
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 1 of 5</div>
+      <h2 class="step-title">Tell us about your business</h2>
+      <p class="step-desc">This helps us write captions that sound exactly like you — professional, accurate, and completely on-brand. The more detail you give us, the better your posts will be.</p>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Business name *</label>
+        <input class="form-input ${errors.business_name?'err':''}" value="${esc(F.business_name)}" placeholder="Joe's Bakery" oninput="F.business_name=this.value">
+        ${errors.business_name?`<div class="form-error">${errors.business_name}</div>`:''}
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contact email *</label>
+        <input class="form-input ${errors.contact_email?'err':''}" value="${esc(F.contact_email)}" placeholder="joe@joesbakery.com.au" type="email" oninput="F.contact_email=this.value">
+        ${errors.contact_email?`<div class="form-error">${errors.contact_email}</div>`:''}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Business phone <span class="form-label-opt">optional</span></label>
+      <div class="phone-wrap">
+        <select class="form-input form-select phone-code" onchange="F.phone_code=this.value">
+          ${COUNTRY_CODES.map(c=>`<option value="${c.d}" ${F.phone_code===c.d?'selected':''}>${c.d} ${c.n}</option>`).join('')}
+        </select>
+        <input class="form-input phone-num" value="${esc(F.phone_number)}" placeholder="412 345 678" type="tel" oninput="F.phone_number=this.value">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Business type *</label>
+        <select class="form-input form-select ${errors.business_type?'err':''}" onchange="F.business_type=this.value">
+          <option value="">Select your business type...</option>
+          ${BUSINESS_TYPES.map(t=>`<option value="${t}" ${F.business_type===t?'selected':''}>${t}</option>`).join('')}
+        </select>
+        ${errors.business_type?`<div class="form-error">${errors.business_type}</div>`:''}
+      </div>
+      <div class="form-group">
+        <label class="form-label">Your timezone *</label>
+        <select class="form-input form-select ${errors.timezone?'err':''}" onchange="F.timezone=this.value">
+          <option value="">Select your timezone...</option>
+          ${TIMEZONES.map(t=>`<option value="${t}" ${F.timezone===t?'selected':''}>${t}</option>`).join('')}
+        </select>
+        ${errors.timezone?`<div class="form-error">${errors.timezone}</div>`:''}
+      </div>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="info-box">
+      <span class="info-box-icon">📧</span>
+      <div class="info-box-text">
+        <strong>Before continuing — create a dedicated Gmail.</strong> This email is used to set up your Make.com automation, Cloudinary image hosting, Google Drive photo folder, and OpenAI connection — all in your name, all owned by you.<br><br>
+        Format: <strong>yourbusinessname_aspp@gmail.com</strong><br>
+        Example: joesbakery_aspp@gmail.com
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Your dedicated Gmail address *</label>
+      <input class="form-input ${errors.aspp_gmail?'err':''}" value="${esc(F.aspp_gmail_prefix)}"
+        placeholder="e.g. joesbakery_aspp@gmail.com"
+        oninput="F.aspp_gmail_prefix=this.value.toLowerCase().trim()">
+      <div class="form-hint">Must follow the format: <strong>yourbusinessname_aspp@gmail.com</strong> — must include _aspp before @gmail.com</div>
+      ${errors.aspp_gmail?`<div class="form-error">${errors.aspp_gmail}</div>`:''}
+    </div>
+
+    <div class="info-box amber">
+      <span class="info-box-icon">⚡</span>
+      <div class="info-box-text">
+        <strong>After we configure everything, you'll need ~10 minutes to log in and add payment to each platform:</strong>
+        <div class="costs-grid">
+          <div class="cost-item"><div class="cost-name">Make.com — ~A$10/mo</div><div class="cost-role">Your automation engine</div></div>
+          <div class="cost-item"><div class="cost-name">Cloudinary — Free tier</div><div class="cost-role">Your image hosting</div></div>
+          <div class="cost-item"><div class="cost-name">OpenAI API — ~A$5–10/mo</div><div class="cost-role">AI captions + images</div></div>
+          <div class="cost-item"><div class="cost-name">Unsplash — Free</div><div class="cost-role">Stock photo library</div></div>
+        </div>
+        <div style="margin-top:10px;font-style:italic">All accounts are created in your name on your dedicated Gmail. You own everything. If you ever stop, all accounts stay with you — nothing disappears.</div>
+      </div>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="form-group">
+      <label class="form-label">Describe what your business does *</label>
+      <textarea class="form-input ${errors.business_description?'err':''}"
+        placeholder="Write 2–4 sentences. Include what you sell or offer, who your customers are, and what makes you different. The more detail you give, the more accurate and personalised your posts will be."
+        oninput="F.business_description=this.value">${esc(F.business_description)}</textarea>
+      ${errors.business_description?`<div class="form-error">${errors.business_description}</div>`:''}
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Who are your typical customers? <span class="form-label-opt">optional</span></label>
+        <input class="form-input" value="${esc(F.target_audience)}"
+          placeholder="e.g. Local families with young children, pet owners in the area, small business owners..."
+          oninput="F.target_audience=this.value">
+        <div class="form-hint">This helps us write captions that speak directly to your audience.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Brand keywords <span class="form-label-opt">optional</span></label>
+        <input class="form-input" value="${esc(F.brand_keywords)}"
+          placeholder="e.g. warm, family-friendly, affordable, premium, trusted, local..."
+          oninput="F.brand_keywords=this.value">
+        <div class="form-hint">Words that describe your brand voice and personality.</div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Email address to use in post captions <span class="form-label-opt">optional</span></label>
+      <input class="form-input" value="${esc(F.caption_cta_email)}"
+        placeholder="${esc(F.contact_email)||'e.g. bookings@joesbakery.com.au'}"
+        type="email" oninput="F.caption_cta_email=this.value">
+      <div class="form-hint">The email we'll include in your post captions for customer enquiries. Defaults to your contact email if left blank.</div>
+    </div>`;
+}
+
+function renderStep1(){
+  const igOnly=isIGOnly();
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 2 of 5</div>
+      <h2 class="step-title">Your social media accounts</h2>
+      <p class="step-desc">Select every platform you want us to post to. We connect directly to your own accounts — you remain the owner and can remove our access at any time.</p>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Which platforms do you post on? *</label>
+      <div class="platform-grid">
+        ${PLATFORMS.map(p=>`
+          <div class="platform-card ${F.platforms.includes(p.id)?'selected':''}" onclick="togglePlatform('${p.id}')">
+            <div class="platform-icon">${p.icon}</div>
+            <div class="platform-name">${p.name}</div>
+            <div class="platform-sub">${p.sub}</div>
+          </div>`).join('')}
+      </div>
+      ${errors.platforms?`<div class="form-error" style="margin-top:8px">${errors.platforms}</div>`:''}
+    </div>
+
+    ${F.platforms.length===0?`
+    <div class="info-box">
+      <span class="info-box-icon">👆</span>
+      <div class="info-box-text">
+        <strong>Select at least one platform above to continue.</strong><br><br>
+        Don't have a Facebook Page or Instagram Business account yet?<br>
+        • <a href="https://facebook.com/pages/create" target="_blank" style="color:var(--blue)">Create a Facebook Page</a> — free, takes 5 minutes<br>
+        • <a href="https://help.instagram.com/502981923235522" target="_blank" style="color:var(--blue)">Switch Instagram to Business account</a> — free, done in Settings<br>
+        • <a href="https://business.google.com" target="_blank" style="color:var(--blue)">Set up Google Business Profile</a> — free, requires address verification
+      </div>
+    </div>`:''}
+
+    ${igOnly?`
+    <div class="info-box">
+      <span class="info-box-icon">ℹ️</span>
+      <div class="info-box-text">
+        <strong>Instagram requires a Facebook Page connection.</strong><br>
+        Meta's API requires every Instagram Business account to be linked to a Facebook Page to post automatically — even if you never post to Facebook. We'll walk you through this after you submit. It takes 5 minutes and the Page can stay completely inactive.
+      </div>
+    </div>`:''}
+
+    ${hasFB()?`
+    <div class="form-divider"></div>
+    <div class="step-tag" style="margin-bottom:14px">Facebook Page details</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Facebook Page name *</label>
+        <input class="form-input" value="${esc(F.facebook_page_name)}" placeholder="Joe's Bakery" oninput="F.facebook_page_name=this.value">
+        <div class="form-hint">Your Page name as it appears on Facebook.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Facebook Page URL *</label>
+        <input class="form-input ${errors.facebook_page_url?'err':''}" value="${esc(F.facebook_page_url)}"
+          placeholder="facebook.com/joesbakery"
+          oninput="F.facebook_page_url=this.value">
+        <div class="form-hint">Accepts: facebook.com/PageName or facebook.com/profile.php?id=123456</div>
+        ${errors.facebook_page_url?`<div class="form-error">${errors.facebook_page_url}</div>`:''}
+      </div>
+    </div>
+    <div class="info-box">
+      <span class="info-box-icon">📧</span>
+      <div class="info-box-text">
+        <strong>After you submit this form</strong>, we'll email you one simple instruction — add our team email to your Facebook Page as Admin. This takes 2 minutes and is the only technical step we'll ask of you. We'll include a step-by-step guide with screenshots.
+      </div>
+    </div>`:''}
+
+    ${hasIG()?`
+    <div class="form-divider"></div>
+    <div class="step-tag" style="margin-bottom:14px">Instagram details</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Instagram handle *</label>
+        <input class="form-input ${errors.ig_handle?'err':''}" value="${esc(F.ig_handle)}"
+          placeholder="@joesbakery"
+          oninput="F.ig_handle=this.value">
+        ${errors.ig_handle?`<div class="form-error">${errors.ig_handle}</div>`:''}
+      </div>
+      <div class="form-group">
+        <label class="form-label">Instagram profile URL <span class="form-label-opt">optional</span></label>
+        <input class="form-input" value="${esc(F.ig_url)}" placeholder="instagram.com/joesbakery" oninput="F.ig_url=this.value">
+      </div>
+    </div>
+    <div class="info-box">
+      <span class="info-box-icon">ℹ️</span>
+      <div class="info-box-text">Make sure your Instagram is set to a <strong>Business or Creator account</strong> (not Personal). Go to Instagram → Settings → Account → Switch to Professional Account if needed. It's free and takes 2 minutes.</div>
+    </div>`:''}
+
+    ${hasGBP()?`
+    <div class="form-divider"></div>
+    <div class="step-tag" style="margin-bottom:8px">Google Business Profile</div>
+    <div class="info-box" style="margin-bottom:16px">
+      <span class="info-box-icon">🗺️</span>
+      <div class="info-box-text">
+        <strong>GBP verification takes 1–2 weeks</strong> — Google mails a postcard with a verification code to your business address. Please start this process as soon as possible so it's ready when we activate your posting.
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">GBP listing name <span class="form-label-opt">if already verified</span></label>
+        <input class="form-input" value="${esc(F.gbp_name)}" placeholder="Joe's Bakery Glen Waverley" oninput="F.gbp_name=this.value">
+        <div class="form-hint">Must match exactly as it appears on Google Maps — including suburb/location if shown.</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">GBP verification status</label>
+        <select class="form-input form-select" onchange="F.gbp_status=this.value">
+          <option value="">Select current status...</option>
+          <option ${F.gbp_status==='Already verified and live on Google Maps'?'selected':''}>Already verified and live on Google Maps</option>
+          <option ${F.gbp_status==='Verification in progress — waiting for postcard'?'selected':''}>Verification in progress — waiting for postcard</option>
+          <option ${F.gbp_status==='Not started yet — I need help setting it up'?'selected':''}>Not started yet — I need help setting it up</option>
+          <option ${F.gbp_status==='I do not have a physical address (online business)'?'selected':''}>I do not have a physical address (online business)</option>
+        </select>
+        <div class="form-hint">We'll send you a guide based on your current status.</div>
+      </div>
+    </div>`:''}`;
+}
+
+function renderStep2(){
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 3 of 5</div>
+      <h2 class="step-title">Posting schedule & plan</h2>
+      <p class="step-desc">Choose which days you want to post and which plan suits your business. Posts go out automatically at 6pm your time on every selected day — every week, without you doing anything.</p>
+    </div>
+
+    <div class="info-box green">
+      <span class="info-box-icon">💳</span>
+      <div class="info-box-text">
+        <strong>Transparent pricing — two separate fees:</strong><br>
+        <strong>Our fee</strong> (setup + monthly) covers building and managing your full automation system.<br>
+        <strong>Platform costs</strong> (~A$20/month total) are paid directly by you to Make.com, Cloudinary, and OpenAI — we never mark these up.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Which days do you want to post? *</label>
+      <div class="days-grid" id="days-grid">
+        ${DAYS.map(d=>`<div class="day-chip ${F.posting_days.includes(d)?'selected':''}" onclick="toggleDay('${d}')">${d}</div>`).join('')}
+      </div>
+      ${errors.posting_days?`<div class="form-error" style="margin-top:8px">${errors.posting_days}</div>`:''}
+      <div class="form-hint" style="margin-top:10px">Most businesses start with 3–5 days. You can change this anytime — just email us.</div>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="form-group">
+      <label class="form-label">Choose your plan *</label>
+      <div class="tier-grid">
+        ${PLANS.map(p=>`
+          <div class="tier-card ${F.tier===p.key?'selected':''}" onclick="F.tier='${p.key}';render()">
+            ${p.popular?'<div class="tier-popular">Most popular</div>':''}
+            <div class="tier-name">${p.key}</div>
+            <div class="tier-price">A$${AUD_P[p.key].mo}<span style="font-family:var(--sans);font-size:13px;font-weight:500">/mo</span></div>
+            <div class="tier-setup">A$${AUD_P[p.key].s} one-time setup fee</div>
+            ${p.features.slice(0,3).map(f=>`<div class="tier-feat">${f}</div>`).join('')}
+          </div>`).join('')}
+      </div>
+      ${errors.tier?`<div class="form-error" style="margin-top:8px">${errors.tier}</div>`:''}
+      <button class="btn-pricing-info" onclick="openModal()">🌍 See pricing in your currency →</button>
+    </div>`;
+}
+
+function renderStep3(){
+  if(F.posting_days.length===0){
+    return `<div class="step-header"><div class="step-tag">Step 4 of 5</div><h2 class="step-title">What should we post?</h2></div>
+    <div class="info-box"><span class="info-box-icon">⬅️</span><div class="info-box-text">Go back to Step 3 and select at least one posting day first.</div></div>`;
+  }
+  const isStarter=F.tier==='Starter';
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 4 of 5</div>
+      <h2 class="step-title">What should we post?</h2>
+      <p class="step-desc">For each posting day, choose a content topic, which photo sources to use, and any sub-topics you'd like us to cover. The more detail you give, the more personalised and varied your posts will be.</p>
+    </div>
+
+    <div class="info-box" style="margin-bottom:16px">
+      <span class="info-box-icon">🖼️</span>
+      <div class="info-box-text">
+        <strong>About AI generated images</strong> — our system uses GPT-image-1 to create professional, photorealistic images tailored to your business type and content topic. Here are some examples:
+        <div class="ai-examples" style="margin-top:12px">
+          <div class="ai-example">
+            <img src="https://autosocialpostpro.github.io/client-onboarding/ai_example_bakery.png" alt="AI bakery example" onerror="this.parentElement.style.display='none'">
+            <div class="ai-example-label">AI image — bakery business</div>
+          </div>
+          <div class="ai-example">
+            <img src="https://autosocialpostpro.github.io/client-onboarding/ai_example_travel.png" alt="AI travel example" onerror="this.parentElement.style.display='none'">
+            <div class="ai-example-label">AI image — travel business</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box amber" style="margin-bottom:20px">
+      <span class="info-box-icon">📁</span>
+      <div class="info-box-text">
+        <strong>About your own photos (Growth & Pro plans)</strong> — we create a Google Drive folder for each posting day. You simply drop your photos in and we pick them up automatically for that day's post. No notification needed — just upload anytime.<br><br>
+        <strong>Example folder structure:</strong>
+        <div style="background:white;border-radius:8px;padding:12px 14px;margin-top:10px;font-size:12px;font-family:Courier New,monospace;color:#444;border:1px solid #FDE68A;line-height:1.8">
+          📁 YourBusiness/<br>
+          &nbsp;&nbsp;📁 Monday_ServiceShowcase/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;📁 Products/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 Bestsellers/ ← drop photos here<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;📁 NewArrivals/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;📁 TeamPhotos/<br>
+          &nbsp;&nbsp;📁 Wednesday_BehindTheScenes/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;📁 Kitchen/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;📁 Workshop/<br>
+          &nbsp;&nbsp;📁 Friday_CustomerStories/<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;📁 Testimonials/
+        </div>
+        <div style="margin-top:8px;font-style:italic">We build this folder structure based on your selections below. You'll receive a link to your folder when we go live.</div>
+      </div>
+    </div>
+
+    ${isStarter?`
+    <div class="info-box amber" style="margin-bottom:16px">
+      <span class="info-box-icon">📸</span>
+      <div class="info-box-text">
+        <strong>Own photos are not available on the Starter plan.</strong> Upgrade to Growth or Pro to upload your own photos via Google Drive. Your posts will use professional stock photos and AI-generated images.
+      </div>
+    </div>`:''}
+
+    ${F.posting_days.map((day,di)=>`
+      <div class="content-day">
+        <div class="content-day-header">
+          <div class="content-day-num">${di+1}</div>
+          <div class="content-day-name">${day}</div>
+        </div>
+        <div class="form-row" style="margin-bottom:16px">
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Content topic</label>
+            <select class="form-input form-select" onchange="setContent('${day}','topic',this.value)">
+              <option value="">Select a topic for ${day}...</option>
+              ${CONTENT_TOPICS.map(t=>`<option value="${t}" ${(F.content[day]?.topic===t)?'selected':''}>${t}</option>`).join('')}
+            </select>
+            <div class="form-hint">What should this day's post be about?</div>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Sub-topic or specific focus <span class="form-label-opt">optional</span></label>
+            <input class="form-input" value="${esc(F.content[day]?.subtopic||'')}"
+              placeholder="e.g. Sourdough bread, Morning specials, Puppy grooms..."
+              oninput="setContent('${day}','subtopic',this.value)">
+            <div class="form-hint">Any specific product, service, or theme for this day.</div>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label class="form-label">Photo sources for ${day} <span class="form-label-opt">select all that apply</span></label>
+          <div class="photo-sources" id="sources-${day}">
+            ${renderSourcesHTML(day, isStarter)}
+          </div>
+          <div id="upgrade-tip-${day}" style="display:none;margin-top:8px;font-size:12px;color:var(--red);font-weight:500">
+            ⬆️ Own photos require the Growth or Pro plan. Upgrade in Step 3 to enable this option.
+          </div>
+          <div class="form-hint" style="margin-top:8px">We rotate through all selected sources to keep your feed varied.</div>
+        </div>
+      </div>`).join('')}`;
+}
+
+function renderSourcesHTML(day, isStarter){
+  return PHOTO_SOURCES.map(src=>{
+    const disabled=isStarter&&src.starterDisabled;
+    const selected=(F.content[day]?.sources||[]).includes(src.id);
+    return `<div class="photo-source-item ${selected?'selected':''} ${disabled?'disabled':''}"
+      data-day="${day}" data-src="${src.id}"
+      onclick="togglePhotoSource('${day}','${src.id}')">
+      <div class="photo-source-check">${selected?'✓':''}</div>
+      <span class="photo-source-label">${src.label}</span>
+      <span class="photo-source-sub">${src.sub}${disabled?' — Growth/Pro only':''}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderDaySources(day){
+  const el=$(`sources-${day}`);
+  if(el) el.innerHTML=renderSourcesHTML(day, F.tier==='Starter');
+}
+
+function renderStep4(){
+  const plats=F.platforms.map(p=>PLATFORMS.find(x=>x.id===p)?.name).filter(Boolean).join(', ');
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 5 of 5</div>
+      <h2 class="step-title">Review your setup</h2>
+      <p class="step-desc">Please check everything below before submitting. Go back to any step to make changes — nothing is saved until you click Submit.</p>
+    </div>
+
+    <div class="review-section">
+      <div class="review-section-title">Business details</div>
+      ${rr('Business name',F.business_name)}
+      ${rr('Contact email',F.contact_email)}
+      ${rr('Phone',(F.phone_number?(F.phone_code+' '+F.phone_number):'Not provided'))}
+      ${rr('Business type',F.business_type)}
+      ${rr('Dedicated Gmail',F.aspp_gmail_prefix)}
+      ${rr('Timezone',F.timezone)}
+      ${rr('Caption email',F.caption_cta_email||F.contact_email)}
+    </div>
+
+    <div class="review-section">
+      <div class="review-section-title">Social accounts</div>
+      ${rr('Platforms',plats||'—')}
+      ${F.facebook_page_name?rr('Facebook Page',F.facebook_page_name):''}
+      ${F.facebook_page_url?rr('Facebook URL',F.facebook_page_url):''}
+      ${F.ig_handle?rr('Instagram',F.ig_handle):''}
+      ${F.gbp_name?rr('GBP name',F.gbp_name):''}
+      ${F.gbp_status?rr('GBP status',F.gbp_status):''}
+    </div>
+
+    <div class="review-section">
+      <div class="review-section-title">Schedule & plan</div>
+      ${rr('Posting days',F.posting_days.join(', ')||'—')}
+      ${rr('Post time','6:00 PM '+F.timezone+' every posting day')}
+      ${rr('Plan',F.tier+(F.tier?` — A$${AUD_P[F.tier]?.mo}/mo + A$${AUD_P[F.tier]?.s} setup`:''))}
+    </div>
+
+    ${F.posting_days.length>0?`
+    <div class="review-section">
+      <div class="review-section-title">Content</div>
+      ${F.posting_days.map(day=>{
+        const c=F.content[day]||{};
+        const srcs=(c.sources||[]).join(', ')||'Not specified';
+        return `${rr(day,(c.topic||'No topic selected')+(c.subtopic?' — '+c.subtopic:'')+'  |  Photos: '+srcs)}`;
+      }).join('')}
+    </div>`:''}
+
+    <div class="info-box" style="margin-top:8px">
+      <span class="info-box-icon">✅</span>
+      <div class="info-box-text">By submitting, you confirm these details are correct. A confirmation email will be sent to <strong>${esc(F.contact_email)}</strong> within a few minutes of submitting.</div>
+    </div>
+
+    <div class="info-box green" style="margin-top:12px">
+      <span class="info-box-icon">🔑</span>
+      <div class="info-box-text">
+        <strong>You own everything we set up.</strong> Every platform account is created on your dedicated Gmail — you can log in at any time. If you ever stop working with us, all your accounts, automation, and content remain 100% yours.
+      </div>
+    </div>`;
+}
+
+function rr(k,v){if(!v)return '';return `<div class="review-row"><div class="review-key">${k}</div><div class="review-val">${esc(v)}</div></div>`;}
+
+function renderDays(){
+  const g=$('days-grid');
+  if(g) g.innerHTML=DAYS.map(d=>`<div class="day-chip ${F.posting_days.includes(d)?'selected':''}" onclick="toggleDay('${d}')">${d}</div>`).join('');
+}
+
+function renderSuccess(){
+  let n=1;const ns=[];
+  ns.push(`<div class="next-step"><div class="next-step-num">${n++}</div><div class="next-step-text"><strong>Check your email</strong> — confirmation sent to ${esc(F.contact_email)}</div></div>`);
+  if(hasFB()) ns.push(`<div class="next-step"><div class="next-step-num">${n++}</div><div class="next-step-text"><strong>Facebook access request</strong> — we'll email you to add our team to your Facebook Page as Admin (2 minutes)</div></div>`);
+  if(hasIG()&&!hasFB()) ns.push(`<div class="next-step"><div class="next-step-num">${n++}</div><div class="next-step-text"><strong>Facebook Page guide</strong> — we'll email you about linking a Facebook Page to your Instagram (required by Meta)</div></div>`);
+  if(hasGBP()) ns.push(`<div class="next-step"><div class="next-step-num">${n++}</div><div class="next-step-text"><strong>GBP guide</strong> — email with Google Business Profile verification steps based on your current status</div></div>`);
+  ns.push(`<div class="next-step"><div class="next-step-num">${n++}</div><div class="next-step-text"><strong>We set up your accounts</strong> — Make.com, Cloudinary, OpenAI on ${esc(F.aspp_gmail_prefix)}@gmail.com. Done within 24 hours.</div></div>`);
+  ns.push(`<div class="next-step"><div class="next-step-num">${n++}</div><div class="next-step-text"><strong>~10 minutes from you</strong> — step-by-step guide to log in to each platform and add your payment method</div></div>`);
+  ns.push(`<div class="next-step"><div class="next-step-num">${n}</div><div class="next-step-text"><strong>You go live</strong> — confirmation email when your first posts are scheduled and ready</div></div>`);
+
+  $('sidebar').style.display='none';
+  $('main-content').style.marginLeft='0';
+  $('main-content').innerHTML=`
+    <div class="success">
+      <div class="success-icon">✅</div>
+      <h2 class="success-title">You're all set!</h2>
+      <p class="success-sub">We've received everything. Our team will have your account configured within 1 business day. Check your inbox — a confirmation email is on its way.</p>
+      <div class="next-steps">${ns.join('')}</div>
+      <a href="${LANDING_URL}" style="display:inline-flex;align-items:center;gap:8px;margin-top:36px;background:var(--blue);color:white;text-decoration:none;padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;">Back to home</a>
+    </div>`;
+}
+
+// ── MAIN RENDER ────────────────────────────────────────────
+function render(){
+  renderSidebar();
+  const steps=[renderStep0,renderStep1,renderStep2,renderStep3,renderStep4];
+  const nav=`<div class="form-nav">
+    <button class="btn-back" onclick="back()">← ${step===0?'Back to home':'Back'}</button>
+    ${step<4?`<button class="btn-next" onclick="next()">Continue →</button>`:`<button class="btn-next" onclick="submitForm()">Submit & get started ✓</button>`}
+  </div>`;
+  $('main-content').innerHTML=steps[step]()+nav;
+}
+
+render();
+</script>
+</body>
+</html>
