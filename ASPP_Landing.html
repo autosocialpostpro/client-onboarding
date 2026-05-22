@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoSocialPostPro — Your social media, posted automatically</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#1648FF;--blue-dim:#E8EEFF;--blue-dark:#0F35CC;
+  --cream:#FFFAF4;--cream-dark:#F5EFE6;--cream-mid:#EDE8DF;
+  --ink:#0F0E17;--ink-mid:#4A4860;--ink-light:#9896A8;
+  --border:#E4DFD6;--white:#FFFFFF;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,250,244,0.92);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  padding:0 48px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-mark{
+  width:36px;height:36px;background:var(--blue);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--serif);font-size:14px;color:white;letter-spacing:-0.5px;
+}
+.nav-name{font-size:15px;font-weight:600;color:var(--ink);letter-spacing:-0.3px}
+.nav-links{display:flex;align-items:center;gap:32px}
+.nav-link{font-size:14px;font-weight:500;color:var(--ink-mid);text-decoration:none;background:none;border:none;cursor:pointer;font-family:var(--sans);transition:color 0.15s}
+.nav-link:hover{color:var(--blue)}
+.nav-cta{background:var(--blue);color:white;border:none;border-radius:8px;padding:10px 22px;font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:all 0.2s}
+.nav-cta:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(22,72,255,0.25)}
+
+/* HERO */
+.hero{padding:140px 48px 100px;max-width:1140px;margin:0 auto}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--blue-dim);border:1px solid rgba(22,72,255,0.2);
+  border-radius:100px;padding:6px 16px;
+  font-size:12px;font-weight:600;color:var(--blue);
+  letter-spacing:0.5px;text-transform:uppercase;margin-bottom:28px;
+}
+.badge-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.75)}}
+.hero-headline{
+  font-family:var(--serif);
+  font-size:clamp(44px,6.5vw,76px);
+  line-height:1.06;letter-spacing:-2px;
+  color:var(--ink);max-width:760px;margin-bottom:24px;
+}
+.hero-headline em{font-style:italic;color:var(--blue)}
+.hero-sub{
+  font-size:18px;font-weight:400;color:var(--ink-mid);
+  line-height:1.7;max-width:520px;margin-bottom:44px;
+}
+.hero-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.btn-primary{
+  background:var(--blue);color:white;border:none;border-radius:10px;
+  padding:15px 30px;font-size:15px;font-weight:600;
+  font-family:var(--sans);cursor:pointer;transition:all 0.2s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 10px 28px rgba(22,72,255,0.28)}
+.btn-ghost{
+  background:transparent;color:var(--ink-mid);
+  border:1.5px solid var(--border);border-radius:10px;
+  padding:14px 26px;font-size:15px;font-weight:500;
+  font-family:var(--sans);cursor:pointer;transition:all 0.2s;
+}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.hero-trust{margin-top:52px;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.trust-label{font-size:11px;font-weight:700;color:var(--ink-light);letter-spacing:1.5px;text-transform:uppercase}
+.trust-chips{display:flex;gap:10px;flex-wrap:wrap}
+.trust-chip{
+  background:white;border:1px solid var(--border);border-radius:100px;
+  padding:6px 14px;font-size:12px;font-weight:500;color:var(--ink-mid);
+}
+
+/* GEO BANNER */
+.geo-banner{
+  background:var(--blue-dim);border-bottom:1px solid rgba(22,72,255,0.12);
+  padding:10px 48px;display:flex;align-items:center;gap:10px;
+  font-size:13px;color:var(--blue);
+}
+.geo-banner.hidden{display:none}
+
+/* STATS */
+.stats-strip{background:var(--ink);padding:56px 48px}
+.stats-inner{
+  max-width:1140px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:40px;
+}
+.stat-item{text-align:center}
+.stat-number{font-family:var(--serif);font-size:44px;line-height:1;color:white;margin-bottom:10px}
+.stat-number span{color:var(--blue)}
+.stat-label{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5;white-space:pre-line}
+
+/* HOW IT WORKS */
+.section{padding:100px 48px;max-width:1140px;margin:0 auto}
+.section-label{
+  font-size:11px;font-weight:700;color:var(--blue);
+  letter-spacing:2.5px;text-transform:uppercase;
+  margin-bottom:16px;display:flex;align-items:center;gap:10px;
+}
+.section-label::before{content:'';display:block;width:24px;height:2px;background:var(--blue)}
+.section-headline{
+  font-family:var(--serif);font-size:clamp(32px,4vw,50px);
+  line-height:1.1;letter-spacing:-1px;color:var(--ink);
+  margin-bottom:14px;max-width:560px;
+}
+.section-sub{font-size:16px;color:var(--ink-mid);max-width:480px;line-height:1.7;margin-bottom:64px}
+.steps-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+  background:var(--border);
+}
+.step-card{background:var(--cream);padding:36px 30px}
+.step-num{font-family:var(--serif);font-size:12px;color:var(--blue);margin-bottom:18px;letter-spacing:1px}
+.step-icon{
+  width:44px;height:44px;background:var(--blue-dim);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:18px;
+}
+.step-title{font-size:17px;font-weight:600;color:var(--ink);margin-bottom:10px;line-height:1.3}
+.step-desc{font-size:14px;color:var(--ink-mid);line-height:1.65}
+
+/* OWNERSHIP */
+.ownership-bg{background:var(--ink);padding:100px 48px}
+.ownership-inner{max-width:1140px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+.ownership-headline{
+  font-family:var(--serif);font-size:clamp(28px,4vw,46px);
+  line-height:1.1;letter-spacing:-0.8px;color:white;margin:16px 0 20px;
+}
+.ownership-headline em{font-style:italic;color:var(--blue)}
+.ownership-sub{font-size:15px;color:rgba(255,255,255,0.55);line-height:1.7;max-width:420px;margin-bottom:20px}
+.ownership-note{font-size:13px;color:rgba(255,255,255,0.3);line-height:1.6;max-width:420px}
+.ownership-cards{display:flex;flex-direction:column;gap:14px}
+.ownership-card{
+  display:flex;gap:16px;align-items:flex-start;
+  background:rgba(255,255,255,0.05);border-radius:12px;padding:18px 20px;
+  border:1px solid rgba(255,255,255,0.08);
+}
+.ownership-card-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.ownership-card-title{font-size:14px;font-weight:600;color:white;margin-bottom:4px}
+.ownership-card-desc{font-size:13px;color:rgba(255,255,255,0.45);line-height:1.5}
+
+/* PRICING */
+.pricing-bg{background:var(--cream-dark);padding:100px 48px}
+.pricing-inner{max-width:1140px;margin:0 auto}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px}
+.pricing-card{
+  background:white;border:1px solid var(--border);border-radius:16px;
+  padding:36px 30px;position:relative;transition:all 0.2s;
+}
+.pricing-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.07)}
+.pricing-card.featured{background:var(--ink);border-color:var(--ink)}
+.plan-badge{
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--blue);color:white;font-size:11px;font-weight:700;
+  letter-spacing:1px;text-transform:uppercase;padding:4px 16px;border-radius:100px;
+  white-space:nowrap;
+}
+.plan-name{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink-light);margin-bottom:8px}
+.pricing-card.featured .plan-name{color:rgba(255,255,255,0.4)}
+.plan-tagline{font-size:13px;color:var(--ink-mid);margin-bottom:20px;line-height:1.4;min-height:36px}
+.pricing-card.featured .plan-tagline{color:rgba(255,255,255,0.5)}
+.plan-price{font-family:var(--serif);font-size:48px;line-height:1;color:var(--ink);margin-bottom:4px}
+.pricing-card.featured .plan-price{color:white}
+.plan-price sup{font-family:var(--sans);font-size:20px;vertical-align:super;font-weight:400}
+.plan-period{font-size:13px;color:var(--ink-light);margin-bottom:4px}
+.pricing-card.featured .plan-period{color:rgba(255,255,255,0.4)}
+.plan-setup{
+  font-size:12px;color:var(--ink-light);
+  margin-bottom:24px;padding-bottom:24px;
+  border-bottom:1px solid var(--border);
+}
+.pricing-card.featured .plan-setup{color:rgba(255,255,255,0.35);border-bottom-color:rgba(255,255,255,0.1)}
+.features-list{list-style:none;margin-bottom:28px}
+.feature-item{
+  font-size:13px;color:var(--ink-mid);padding:6px 0;
+  display:flex;align-items:flex-start;gap:10px;line-height:1.4;
+}
+.pricing-card.featured .feature-item{color:rgba(255,255,255,0.7)}
+.feature-check{color:var(--blue);font-weight:700;flex-shrink:0;margin-top:1px}
+.btn-plan{
+  width:100%;padding:13px;border-radius:10px;
+  font-size:14px;font-weight:600;font-family:var(--sans);
+  cursor:pointer;transition:all 0.2s;
+}
+.btn-plan-ghost{background:transparent;border:1.5px solid var(--border);color:var(--ink)}
+.btn-plan-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-plan-solid{background:var(--blue);border:none;color:white}
+.btn-plan-solid:hover{background:var(--blue-dark);box-shadow:0 6px 20px rgba(22,72,255,0.3)}
+.btn-plan-outline{background:transparent;border:1.5px solid rgba(255,255,255,0.25);color:white}
+.btn-plan-outline:hover{border-color:white}
+.pricing-note{text-align:center;font-size:12px;color:var(--ink-light);margin-top:20px;line-height:1.6}
+.pricing-geo-note{
+  text-align:center;font-size:12px;color:var(--ink-light);
+  margin-top:8px;
+}
+
+/* PREVIEW BAR — only shown when ?preview= param is set */
+.preview-bar{
+  background:#1648FF;color:white;padding:10px 48px;
+  display:none;align-items:center;justify-content:space-between;
+  font-size:13px;font-weight:500;
+}
+.preview-bar.visible{display:flex}
+.preview-chips{display:flex;gap:8px;flex-wrap:wrap}
+.preview-chip{
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);
+  border-radius:6px;padding:4px 10px;font-size:12px;
+  cursor:pointer;transition:background 0.15s;text-decoration:none;color:white;
+}
+.preview-chip:hover{background:rgba(255,255,255,0.25)}
+.preview-chip.active{background:white;color:var(--blue)}
+
+/* CTA FOOTER */
+.cta-section{padding:100px 48px 120px;text-align:center}
+.cta-inner{max-width:560px;margin:0 auto}
+
+/* FOOTER */
+.footer{background:var(--ink);padding:40px 48px;text-align:center}
+.footer-logo{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:16px}
+.footer-mark{width:32px;height:32px;background:var(--blue);border-radius:7px;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:13px;color:white}
+.footer-name{font-size:14px;font-weight:600;color:white}
+.footer-tagline{font-size:12px;color:rgba(255,255,255,0.35);margin-bottom:20px}
+.footer-email{color:rgba(255,255,255,0.45);font-size:13px;text-decoration:none}
+.footer-email:hover{color:white}
+.footer-copy{font-size:11px;color:rgba(255,255,255,0.2);margin-top:20px}
+
+/* LOADING STATE */
+.price-loading{opacity:0.35;font-style:italic}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .nav{padding:0 24px}
+  .nav-links{display:none}
+  .hero{padding:100px 24px 72px}
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .section{padding:72px 24px}
+  .steps-grid{grid-template-columns:1fr}
+  .ownership-bg{padding:72px 24px}
+  .ownership-inner{grid-template-columns:1fr;gap:40px}
+  .pricing-bg{padding:72px 24px}
+  .pricing-grid{grid-template-columns:1fr}
+  .cta-section{padding:72px 24px 100px}
+  .footer{padding:32px 24px}
+  .preview-bar{padding:10px 24px;flex-direction:column;gap:10px}
+  .geo-banner{padding:10px 24px}
+}
+</style>
+</head>
+<body>
+
+<!-- PREVIEW BAR (only shown with ?preview= param) -->
+<div class="preview-bar" id="preview-bar">
+  <span id="preview-label">👁 Preview mode</span>
+  <div class="preview-chips">
+    <a class="preview-chip" href="?preview=AU">🇦🇺 AU</a>
+    <a class="preview-chip" href="?preview=IN">🇮🇳 IN</a>
+    <a class="preview-chip" href="?preview=AE">🇦🇪 UAE</a>
+    <a class="preview-chip" href="?preview=GB">🇬🇧 UK</a>
+    <a class="preview-chip" href="?preview=US">🇺🇸 USA</a>
+    <a class="preview-chip" href="?preview=SG">🇸🇬 SG</a>
+    <a class="preview-chip" href="?preview=NZ">🇳🇿 NZ</a>
+    <a class="preview-chip" href="?preview=CA">🇨🇦 CA</a>
+    <a class="preview-chip" href="?preview=ZA">🇿🇦 ZA</a>
+    <a class="preview-chip" href="/">✕ Exit preview</a>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="#">
+    <div class="nav-mark">AS</div>
+    <span class="nav-name">AutoSocialPostPro</span>
+  </a>
+  <div class="nav-links">
+    <button class="nav-link" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">How it works</button>
+    <button class="nav-link" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Pricing</button>
+    <a class="nav-link" href="mailto:autosocialpostpro@gmail.com">Contact</a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
+    Get started →
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="badge-dot"></span>
+    Done-for-you social media
+  </div>
+  <h1 class="hero-headline">
+    Your business posts itself.<br>
+    <em>Every single week.</em>
+  </h1>
+  <p class="hero-sub">
+    We set up a fully automated posting system inside your own Instagram,
+    Facebook, and Google accounts. Professional images. AI-written captions.
+    Zero effort from you, seriously.
+  </p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
+      Start setup — from <span id="hero-price" class="price-loading">A$75</span>/mo →
+    </button>
+    <button class="btn-ghost" onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})">
+      See how it works ↓
+    </button>
+  </div>
+  <div class="hero-trust">
+    <span class="trust-label">Works with</span>
+    <div class="trust-chips">
+      <span class="trust-chip">📘 Facebook</span>
+      <span class="trust-chip">📸 Instagram</span>
+      <span class="trust-chip">🗺️ Google Business</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-number">7<span>x</span></div>
+      <div class="stat-label">Posting days available per week</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">45<span>min</span></div>
+      <div class="stat-label">Average client setup time</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">0</div>
+      <div class="stat-label">Technical knowledge needed from you</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-number">100<span>%</span></div>
+      <div class="stat-label">Your accounts. You own everything.</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="section" id="how-it-works">
+  <div class="section-label">How it works</div>
+  <h2 class="section-headline">Set up once. Post forever.</h2>
+  <p class="section-sub">We build the automation inside your own accounts — not ours. You stay in full control while we do all the work.</p>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">Step 01</div>
+      <div class="step-icon">📋</div>
+      <div class="step-title">Tell us about your business</div>
+      <div class="step-desc">Fill our onboarding form — your brand, posting days, content topics, and photo preferences. Takes about 10 minutes.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">Step 02</div>
+      <div class="step-icon">⚙️</div>
+      <div class="step-title">We build your automation</div>
+      <div class="step-desc">Our team sets up Make.com, Cloudinary, and OpenAI inside your dedicated accounts. Usually done within 24 hours.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">Step 03</div>
+      <div class="step-icon">🚀</div>
+      <div class="step-title">Posts go out automatically</div>
+      <div class="step-desc">Every week, at 6pm your time, fresh content posts to your platforms. AI writes the captions. We source the images. You do nothing.</div>
+    </div>
+  </div>
+</section>
+
+<!-- YOU OWN EVERYTHING -->
+<div class="ownership-bg">
+  <div class="ownership-inner">
+    <div>
+      <div class="section-label" style="color:rgba(255,255,255,0.4)">
+        <span style="background:rgba(255,255,255,0.2);width:24px;height:2px;display:block"></span>
+        The important stuff
+      </div>
+      <h2 class="ownership-headline">
+        Your accounts.<br>Your content.<br><em>You own everything.</em>
+      </h2>
+      <p class="ownership-sub">
+        We build the automation <strong style="color:white">inside your own accounts</strong> — not ours.
+        If you ever stop, nothing disappears. Your posts, your photos, your followers — all stay with you.
+      </p>
+      <p class="ownership-note">
+        You pay Make.com, Cloudinary, and OpenAI directly (~A$20/month total).
+        We charge only for setup and our management fee. Full transparency, no hidden costs.
+      </p>
+    </div>
+    <div class="ownership-cards">
+      <div class="ownership-card">
+        <span class="ownership-card-icon">🔑</span>
+        <div>
+          <div class="ownership-card-title">You create the accounts</div>
+          <div class="ownership-card-desc">Facebook Page, Instagram, Google Business Profile. We guide you through any that are missing.</div>
+        </div>
+      </div>
+      <div class="ownership-card">
+        <span class="ownership-card-icon">⚙️</span>
+        <div>
+          <div class="ownership-card-title">We build inside your accounts</div>
+          <div class="ownership-card-desc">Make.com, Cloudinary, OpenAI — set up on your dedicated Gmail. You log in once to add payment. We configure everything else.</div>
+        </div>
+      </div>
+      <div class="ownership-card">
+        <span class="ownership-card-icon">💳</span>
+        <div>
+          <div class="ownership-card-title">You pay platforms directly</div>
+          <div class="ownership-card-desc">Make.com (~A$10/mo), Cloudinary (free), OpenAI API (~A$5–10/mo). No markup. No middleman.</div>
+        </div>
+      </div>
+      <div class="ownership-card">
+        <span class="ownership-card-icon">🚪</span>
+        <div>
+          <div class="ownership-card-title">Stop anytime — nothing disappears</div>
+          <div class="ownership-card-desc">Cancel our service and everything you've built stays yours. Your accounts, your automation, your content.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<div class="pricing-bg" id="pricing">
+  <div class="pricing-inner">
+    <div class="section-label">Pricing</div>
+    <h2 class="section-headline">Simple, honest pricing.</h2>
+    <p class="section-sub">No lock-in contracts. Cancel anytime. All plans include full setup and weekly automated posting.</p>
+
+    <div class="pricing-grid">
+      <!-- STARTER -->
+      <div class="pricing-card">
+        <div class="plan-name">Starter</div>
+        <div class="plan-tagline">For small brands and quick turnarounds</div>
+        <div class="plan-price"><sup id="sym-s" class="price-loading">A$</sup><span id="price-s-mo" class="price-loading">75</span></div>
+        <div class="plan-period"><span id="cur-label">AUD</span> per month</div>
+        <div class="plan-setup"><span id="sym-s2" class="price-loading">A$</span><span id="price-s-setup" class="price-loading">125</span> one-time setup fee</div>
+        <ul class="features-list">
+          <li class="feature-item"><span class="feature-check">✓</span>12 posts per month</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Instagram + Facebook + GBP</li>
+          <li class="feature-item"><span class="feature-check">✓</span>AI-written captions</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Stock photos + AI illustrations</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Monthly post summary</li>
+        </ul>
+        <button class="btn-plan btn-plan-ghost">Get Starter</button>
+      </div>
+
+      <!-- GROWTH -->
+      <div class="pricing-card featured">
+        <div class="plan-badge">Most popular</div>
+        <div class="plan-name">Growth</div>
+        <div class="plan-tagline">For growing businesses ready to elevate</div>
+        <div class="plan-price"><sup id="sym-g" class="price-loading">A$</sup><span id="price-g-mo" class="price-loading">125</span></div>
+        <div class="plan-period"><span class="cur-label-all">AUD</span> per month</div>
+        <div class="plan-setup"><span id="sym-g2" class="price-loading">A$</span><span id="price-g-setup" class="price-loading">175</span> one-time setup fee</div>
+        <ul class="features-list">
+          <li class="feature-item"><span class="feature-check">✓</span>20 posts per month</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Instagram + Facebook + GBP</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Custom brand voice + captions</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Own photos + stock + AI illustrations</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Up to 4 content categories</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Monthly summary + next-day support</li>
+        </ul>
+        <button class="btn-plan btn-plan-solid">Get Growth</button>
+      </div>
+
+      <!-- PRO -->
+      <div class="pricing-card">
+        <div class="plan-name">Pro</div>
+        <div class="plan-tagline">For brands that want a full creative experience</div>
+        <div class="plan-price"><sup id="sym-p" class="price-loading">A$</sup><span id="price-p-mo" class="price-loading">175</span></div>
+        <div class="plan-period"><span class="cur-label-all">AUD</span> per month</div>
+        <div class="plan-setup"><span id="sym-p2" class="price-loading">A$</span><span id="price-p-setup" class="price-loading">275</span> one-time setup fee</div>
+        <ul class="features-list">
+          <li class="feature-item"><span class="feature-check">✓</span>Daily posting, fully flexible</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Instagram + Facebook + GBP</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Custom brand voice</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Unlimited categories</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Own photos + stock + AI illustrations</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Monthly summary + same-day support</li>
+          <li class="feature-item"><span class="feature-check">✓</span>Quarterly 15-min strategy check-in</li>
+        </ul>
+        <button class="btn-plan btn-plan-ghost">Get Pro</button>
+      </div>
+    </div>
+
+    <div class="pricing-geo-note" id="geo-note"></div>
+    <div class="pricing-note" id="op-note">
+      About A$20/month in platform costs (Make.com, Cloudinary, OpenAI) paid directly by you to platforms.
+    </div>
+  </div>
+</div>
+
+<!-- CTA FOOTER -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="section-label" style="justify-content:center">Ready to start?</div>
+    <h2 class="section-headline" style="max-width:100%;text-align:center;margin:0 auto 16px">
+      Zero effort from you.<br><em>Seriously.</em>
+    </h2>
+    <p class="section-sub" style="text-align:center;margin:0 auto 36px">
+      Fill our onboarding form in 10 minutes and we'll have your
+      social media running on autopilot within 24 hours.
+    </p>
+    <button class="btn-primary" style="margin:0 auto" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
+      Get started today →
+    </button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">
+    <div class="footer-mark">AS</div>
+    <span class="footer-name">AutoSocialPostPro</span>
+  </div>
+  <div class="footer-tagline">Zero Effort From You, Seriously!</div>
+  <a class="footer-email" href="mailto:autosocialpostpro@gmail.com">autosocialpostpro@gmail.com</a>
+  <div class="footer-copy">© 2026 AutoSocialPostPro. All rights reserved.</div>
+</div>
+
+<script>
+const AUD = { Starter:{mo:75,setup:125}, Growth:{mo:125,setup:175}, Pro:{mo:175,setup:275} };
+const INR = { Starter:{mo:2999,setup:4999}, Growth:{mo:3999,setup:7499}, Pro:{mo:5999,setup:9999} };
+
+const GEO = [
+  {code:"AU",cur:"AUD",sym:"A$",  manual:false},
+  {code:"IN",cur:"INR",sym:"₹",   manual:true},
+  {code:"AE",cur:"AED",sym:"AED ",manual:false},
+  {code:"GB",cur:"GBP",sym:"£",   manual:false},
+  {code:"US",cur:"USD",sym:"US$", manual:false},
+  {code:"SG",cur:"SGD",sym:"S$",  manual:false},
+  {code:"NZ",cur:"NZD",sym:"NZ$", manual:false},
+  {code:"CA",cur:"CAD",sym:"CA$", manual:false},
+  {code:"ZA",cur:"ZAR",sym:"R",   manual:false},
+];
+
+const COUNTRY_NAMES = {AU:"Australia",IN:"India",AE:"UAE",GB:"UK",US:"USA",SG:"Singapore",NZ:"New Zealand",CA:"Canada",ZA:"South Africa"};
+const FLAGS = {AU:"🇦🇺",IN:"🇮🇳",AE:"🇦🇪",GB:"🇬🇧",US:"🇺🇸",SG:"🇸🇬",NZ:"🇳🇿",CA:"🇨🇦",ZA:"🇿🇦"};
+
+let rates = {};
+let country = GEO[0];
+
+function fmtAmt(n, code) {
+  return code === "IN" ? n.toLocaleString("en-IN") : n.toLocaleString("en-US");
+}
+
+function convert(audAmt) {
+  if(country.manual) return null;
+  if(country.cur === "AUD") return audAmt;
+  const rk = country.cur.toLowerCase();
+  const rate = rates[rk] || 1;
+  return Math.round(audAmt * rate);
+}
+
+function renderPrices() {
+  const sym = country.sym;
+  const cur = country.cur;
+  const code = country.code;
+  const isManual = country.manual;
+
+  const plans = ["Starter","Growth","Pro"];
+  const ids = {Starter:"s",Growth:"g",Pro:"p"};
+
+  plans.forEach(plan => {
+    const id = ids[plan];
+    let mo, setup;
+
+    if(isManual) {
+      mo = INR[plan].mo; setup = INR[plan].setup;
+    } else {
+      mo = convert(AUD[plan].mo); setup = convert(AUD[plan].setup);
+    }
+
+    document.getElementById(`price-${id}-mo`).textContent    = fmtAmt(mo, code);
+    document.getElementById(`price-${id}-setup`).textContent = fmtAmt(setup, code);
+    document.getElementById(`sym-${id}`).textContent          = sym;
+    document.getElementById(`sym-${id}2`).textContent         = sym;
+
+    document.getElementById(`price-${id}-mo`).classList.remove("price-loading");
+    document.getElementById(`price-${id}-setup`).classList.remove("price-loading");
+    document.getElementById(`sym-${id}`).classList.remove("price-loading");
+    document.getElementById(`sym-${id}2`).classList.remove("price-loading");
+  });
+
+  // Currency labels
+  document.getElementById("cur-label").textContent = cur;
+  document.querySelectorAll(".cur-label-all").forEach(el => el.textContent = cur);
+
+  // Hero price
+  const heroMo = isManual ? INR.Starter.mo : convert(AUD.Starter.mo);
+  const heroPriceEl = document.getElementById("hero-price");
+  heroPriceEl.textContent = sym + fmtAmt(heroMo, code);
+  heroPriceEl.classList.remove("price-loading");
+
+  // Geo note
+  const geoNote = document.getElementById("geo-note");
+  if(code === "AU") {
+    geoNote.textContent = "All prices in AUD. No lock-in contracts — cancel anytime.";
+  } else if(isManual) {
+    geoNote.textContent = "Prices in INR — set for local purchasing power. No lock-in contracts.";
+  } else {
+    const rk = cur.toLowerCase();
+    geoNote.textContent = `Prices shown in ${cur}, converted live from AUD (1 AUD = ${Number(rates[rk]||1).toFixed(4)} ${cur}). Billing in AUD.`;
+  }
+
+  // Op cost note
+  const opNote = document.getElementById("op-note");
+  opNote.textContent = isManual
+    ? "About ₹1,000/month in platform costs (Make.com, Cloudinary, OpenAI) paid directly by you to platforms."
+    : "About A$20/month in platform costs (Make.com, Cloudinary, OpenAI) paid directly by you to platforms.";
+}
+
+async function init() {
+  // Check for ?preview= param
+  const params = new URLSearchParams(window.location.search);
+  const preview = params.get("preview")?.toUpperCase();
+
+  // Show preview bar if param set
+  if(preview) {
+    const bar = document.getElementById("preview-bar");
+    bar.classList.add("visible");
+    document.getElementById("preview-label").textContent =
+      `👁 Preview: ${FLAGS[preview]||""} ${COUNTRY_NAMES[preview]||preview} pricing`;
+    // Mark active chip
+    document.querySelectorAll(".preview-chip").forEach(chip => {
+      if(chip.href && chip.href.includes(`preview=${preview}`)) chip.classList.add("active");
+    });
+  }
+
+  // Detect country
+  let countryCode = "AU";
+  if(preview) {
+    countryCode = preview;
+    console.log(`[ASPP] Preview mode: ${preview}`);
+  } else {
+    try {
+      const r = await fetch("https://ipapi.co/json/");
+      const d = await r.json();
+      countryCode = d.country_code || "AU";
+    } catch(e) { countryCode = "AU"; }
+  }
+
+  country = GEO.find(c=>c.code===countryCode) || {code:countryCode,cur:"AUD",sym:"A$",manual:false};
+
+  // Fetch AUD rates
+  try {
+    const r = await fetch("https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/aud.json");
+    const d = await r.json();
+    rates = d.aud;
+  } catch(e) {
+    rates = {usd:0.635,aed:2.33,gbp:0.50,inr:53.0,sgd:0.86,nzd:1.10,cad:0.87,zar:11.8};
+  }
+
+  renderPrices();
+}
+
+init();
+</script>
+</body>
+</html>
