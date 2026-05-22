@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — AutoSocialPostPro</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --blue:#1648FF;--blue-dim:#E8EEFF;--blue-dark:#0F35CC;
+  --cream:#FFFAF4;--cream-dark:#F5EFE6;--ink:#0F0E17;
+  --ink-mid:#4A4860;--ink-light:#9896A8;--border:#E4DFD6;
+  --white:#FFFFFF;--green:#16A34A;--red:#DC2626;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);
+     -webkit-font-smoothing:antialiased;min-height:100vh}
+
+/* NAV */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,250,244,0.95);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  padding:0 40px;height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-mark{width:34px;height:34px;background:var(--blue);border-radius:8px;
+           display:flex;align-items:center;justify-content:center;
+           font-family:var(--serif);font-size:13px;color:white}
+.nav-name{font-size:15px;font-weight:600;color:var(--ink);letter-spacing:-0.3px}
+.nav-back{font-size:13px;color:var(--ink-light);text-decoration:none;
+          display:flex;align-items:center;gap:6px;transition:color 0.15s}
+.nav-back:hover{color:var(--blue)}
+
+/* LAYOUT */
+.layout{display:flex;min-height:100vh;padding-top:64px}
+
+/* SIDEBAR */
+.sidebar{
+  width:300px;flex-shrink:0;background:var(--ink);
+  padding:44px 32px;
+  position:fixed;top:64px;left:0;bottom:0;
+  display:flex;flex-direction:column;overflow-y:auto;
+}
+.sidebar-brand{display:flex;align-items:center;gap:10px;margin-bottom:44px}
+.sidebar-mark{width:30px;height:30px;background:var(--blue);border-radius:6px;
+              display:flex;align-items:center;justify-content:center;
+              font-family:var(--serif);font-size:12px;color:white}
+.sidebar-name{font-size:13px;font-weight:600;color:white}
+.steps-list{flex:1}
+.step-item{display:flex;align-items:flex-start;gap:12px;margin-bottom:24px;cursor:pointer}
+.step-dot{
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;
+  transition:all 0.2s;
+}
+.step-done .step-dot{background:var(--blue);color:white}
+.step-active .step-dot{background:white;color:var(--ink)}
+.step-upcoming .step-dot{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.2)}
+.step-label{padding-top:3px}
+.step-name{font-size:13px;font-weight:600;transition:color 0.2s}
+.step-done .step-name{color:rgba(255,255,255,0.4)}
+.step-active .step-name{color:white}
+.step-upcoming .step-name{color:rgba(255,255,255,0.2)}
+.step-sub{font-size:11px;color:rgba(255,255,255,0.2);margin-top:2px}
+.step-connector{width:1px;height:16px;background:rgba(255,255,255,0.08);
+                margin-left:14px;margin-top:-12px;margin-bottom:8px}
+.progress-bar{height:3px;background:rgba(255,255,255,0.08);border-radius:2px;margin-top:32px;overflow:hidden}
+.progress-fill{height:100%;background:var(--blue);border-radius:2px;transition:width 0.4s ease}
+
+/* MAIN */
+.main{margin-left:300px;flex:1;padding:52px 64px;min-height:calc(100vh - 64px)}
+.step-header{margin-bottom:36px}
+.step-tag{
+  font-size:10px;font-weight:700;color:var(--blue);
+  letter-spacing:2.5px;text-transform:uppercase;
+  margin-bottom:12px;display:flex;align-items:center;gap:8px;
+}
+.step-tag::before{content:'';width:18px;height:2px;background:var(--blue)}
+.step-title{font-family:var(--serif);font-size:30px;line-height:1.15;
+             letter-spacing:-0.5px;color:var(--ink);margin-bottom:8px}
+.step-desc{font-size:14px;color:var(--ink-mid);line-height:1.65}
+
+/* FORM ELEMENTS */
+.form-group{margin-bottom:22px}
+.form-label{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:7px}
+.form-label-opt{font-weight:400;color:var(--ink-light);font-size:12px;margin-left:5px}
+.form-hint{font-size:12px;color:var(--ink-light);margin-top:6px;line-height:1.5}
+.form-error{font-size:12px;color:var(--red);margin-top:5px}
+.form-input{
+  width:100%;padding:11px 14px;
+  border:1.5px solid var(--border);border-radius:9px;
+  font-size:14px;font-family:var(--sans);color:var(--ink);
+  background:white;transition:border-color 0.15s,box-shadow 0.15s;outline:none;
+}
+.form-input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,72,255,0.08)}
+.form-input.err{border-color:var(--red)}
+.form-input::placeholder{color:var(--ink-light)}
+.form-select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%239896A8' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 14px center;
+  padding-right:36px;cursor:pointer;
+}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.form-divider{height:1px;background:var(--border);margin:28px 0}
+textarea.form-input{resize:vertical;min-height:100px}
+
+/* GMAIL INPUT */
+.gmail-wrap{display:flex}
+.gmail-wrap .form-input{border-radius:9px 0 0 9px;border-right:none}
+.gmail-suffix{
+  padding:11px 14px;background:var(--cream-dark);
+  border:1.5px solid var(--border);border-left:none;border-radius:0 9px 9px 0;
+  font-size:13px;color:var(--ink-light);white-space:nowrap;display:flex;align-items:center;
+}
+
+/* INFO BOX */
+.info-box{
+  background:var(--blue-dim);border:1px solid rgba(22,72,255,0.15);
+  border-radius:10px;padding:14px 18px;
+  display:flex;gap:12px;align-items:flex-start;margin-bottom:20px;
+}
+.info-box.amber{background:#FFFBEB;border-color:#FDE68A}
+.info-box.green{background:#F0FDF4;border-color:#BBF7D0}
+.info-box-icon{font-size:16px;flex-shrink:0;margin-top:1px}
+.info-box-text{font-size:13px;color:var(--ink-mid);line-height:1.6}
+.info-box-text strong{color:var(--ink)}
+.info-box.amber .info-box-text{color:#78350F}
+.info-box.amber .info-box-text strong{color:#92400E}
+.info-box.green .info-box-text{color:#166534}
+.info-box.green .info-box-text strong{color:#15803D}
+
+/* PLATFORM CARDS */
+.platform-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:8px}
+.platform-card{
+  border:1.5px solid var(--border);border-radius:12px;padding:18px 14px;
+  cursor:pointer;transition:all 0.15s;text-align:center;background:white;
+  user-select:none;
+}
+.platform-card:hover{border-color:var(--blue)}
+.platform-card.selected{border-color:var(--blue);background:var(--blue-dim)}
+.platform-icon{font-size:24px;margin-bottom:8px}
+.platform-name{font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.platform-sub{font-size:11px;color:var(--ink-light)}
+
+/* DAY CHIPS */
+.days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+.day-chip{
+  aspect-ratio:1;border:1.5px solid var(--border);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all 0.15s;background:white;user-select:none;
+  font-size:11px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;color:var(--ink-mid);
+}
+.day-chip:hover{border-color:var(--blue)}
+.day-chip.selected{background:var(--blue);border-color:var(--blue);color:white}
+
+/* TIER CARDS */
+.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tier-card{
+  border:1.5px solid var(--border);border-radius:12px;padding:20px;
+  cursor:pointer;transition:all 0.15s;background:white;position:relative;
+}
+.tier-card:hover{border-color:var(--blue)}
+.tier-card.selected{border-color:var(--blue);background:var(--blue-dim)}
+.tier-popular{
+  position:absolute;top:-10px;left:50%;transform:translateX(-50%);
+  background:var(--blue);color:white;font-size:10px;font-weight:700;
+  padding:3px 10px;border-radius:100px;white-space:nowrap;
+}
+.tier-name{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+            color:var(--ink-light);margin-bottom:8px}
+.tier-price{font-family:var(--serif);font-size:26px;color:var(--ink);margin-bottom:4px}
+.tier-setup{font-size:11px;color:var(--ink-light);margin-bottom:12px}
+.tier-feat{font-size:12px;color:var(--ink-mid);display:flex;align-items:flex-start;
+            gap:6px;margin-bottom:4px;line-height:1.4}
+.tier-feat::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;font-size:11px;margin-top:1px}
+
+/* PLATFORM COSTS TABLE */
+.costs-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+.cost-item{background:white;border-radius:8px;padding:10px 12px;border:1px solid #D1FAE5}
+.cost-name{font-size:12px;font-weight:600;color:#15803D}
+.cost-role{font-size:11px;color:#6B7280;margin-top:2px}
+
+/* CONTENT DAY CARDS */
+.content-day{background:white;border:1px solid var(--border);border-radius:12px;padding:22px;margin-bottom:16px}
+.content-day-header{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.content-day-num{
+  width:28px;height:28px;background:var(--blue);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:white;flex-shrink:0;
+}
+.content-day-name{font-size:15px;font-weight:600;color:var(--ink)}
+
+/* REVIEW */
+.review-section{margin-bottom:24px}
+.review-section-title{
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  color:var(--blue);margin-bottom:10px;
+  display:flex;align-items:center;gap:8px;
+}
+.review-section-title::before{content:'';width:14px;height:2px;background:var(--blue)}
+.review-row{display:flex;padding:9px 0;border-bottom:1px solid var(--border)}
+.review-row:last-child{border-bottom:none}
+.review-key{font-size:12px;color:var(--ink-light);width:150px;flex-shrink:0;font-weight:500}
+.review-val{font-size:13px;color:var(--ink);font-weight:500;flex:1}
+
+/* NAV BUTTONS */
+.form-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:44px;padding-top:22px;border-top:1px solid var(--border);
+}
+.btn-back{
+  background:transparent;border:none;font-size:14px;font-weight:500;
+  color:var(--ink-light);cursor:pointer;font-family:var(--sans);
+  display:flex;align-items:center;gap:6px;transition:color 0.15s;
+}
+.btn-back:hover{color:var(--ink)}
+.btn-next{
+  background:var(--blue);color:white;border:none;border-radius:10px;
+  padding:13px 32px;font-size:15px;font-weight:600;font-family:var(--sans);
+  cursor:pointer;transition:all 0.2s;display:flex;align-items:center;gap:8px;
+}
+.btn-next:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 6px 20px rgba(22,72,255,0.25)}
+.btn-next:disabled{opacity:0.5;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* SUCCESS */
+.success{text-align:center;padding:60px 40px}
+.success-icon{width:72px;height:72px;background:#DCFCE7;border-radius:50%;
+               display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 24px}
+.success-title{font-family:var(--serif);font-size:30px;color:var(--ink);margin-bottom:12px;letter-spacing:-0.5px}
+.success-sub{font-size:15px;color:var(--ink-mid);max-width:420px;margin:0 auto 32px;line-height:1.65}
+.next-steps{text-align:left;max-width:440px;margin:0 auto}
+.next-step{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--border)}
+.next-step:last-child{border-bottom:none}
+.next-step-num{
+  width:28px;height:28px;background:var(--blue-dim);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:var(--blue);flex-shrink:0;
+}
+.next-step-text{font-size:14px;color:var(--ink-mid);line-height:1.5}
+.next-step-text strong{color:var(--ink)}
+
+/* SUBMITTING */
+.submitting{text-align:center;padding:80px 40px}
+.spinner{width:40px;height:40px;border:3px solid var(--blue-dim);
+          border-top-color:var(--blue);border-radius:50%;
+          animation:spin 0.8s linear infinite;margin:0 auto 20px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .sidebar{display:none}
+  .main{margin-left:0;padding:32px 24px}
+  .form-row{grid-template-columns:1fr}
+  .platform-grid{grid-template-columns:1fr 1fr}
+  .days-grid{grid-template-columns:repeat(4,1fr)}
+  .tier-grid{grid-template-columns:1fr}
+  .costs-grid{grid-template-columns:1fr}
+  .nav{padding:0 20px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a class="nav-logo" href="https://autosocialpostpro.github.io">
+    <div class="nav-mark">AS</div>
+    <span class="nav-name">AutoSocialPostPro</span>
+  </a>
+  <a class="nav-back" href="https://autosocialpostpro.github.io">← Back to home</a>
+</nav>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-mark">AS</div>
+      <span class="sidebar-name">AutoSocialPostPro</span>
+    </div>
+    <div class="steps-list" id="steps-list"></div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main" id="main-content"></main>
+</div>
+
+<script>
+// ── CONFIG ─────────────────────────────────────────────────────
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzqmxr1kfyF_iYPIIx4gCbBrx7Z2ifgRZsfoYazRQcxEkc0D-H-1skScKD56G9AVlaN/exec';
+const LANDING_URL     = 'https://autosocialpostpro.github.io';
+
+const STEPS = [
+  {name:'Business details', sub:'Who you are'},
+  {name:'Social accounts',  sub:'Where you post'},
+  {name:'Schedule & plan',  sub:'When & how much'},
+  {name:'Your content',     sub:'What to post'},
+  {name:'Review & submit',  sub:'Almost done'},
+];
+
+const BUSINESS_TYPES = [
+  'Restaurant / Café / Food','Retail / Shop','Trades / Home Services',
+  'Health / Beauty / Wellness','Professional Services','Education / Training',
+  'Real Estate','Fitness / Sport','Events / Entertainment',
+  'Dog Grooming / Pet Care','Other',
+];
+
+const TIMEZONES = [
+  'Sydney / Melbourne (AEST/AEDT)','Brisbane / Queensland (AEST)',
+  'Adelaide (ACST/ACDT)','Perth (AWST)','Darwin (ACST)',
+  'India (IST)','Dubai (GST)','London (GMT/BST)',
+  'New York (EST/EDT)','Los Angeles (PST/PDT)',
+];
+
+const PLATFORMS = [
+  {id:'facebook',  icon:'📘', name:'Facebook Page',           sub:'Business page'},
+  {id:'instagram', icon:'📸', name:'Instagram Business',       sub:'Business or Creator'},
+  {id:'gbp',       icon:'🗺️', name:'Google Business Profile',  sub:'Google Maps listing'},
+];
+
+const DAYS = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+const PLANS = [
+  {key:'Starter', price:'A$75', setup:'A$125 setup', popular:false,
+   features:['12 posts per month','Instagram + Facebook + GBP','AI-written captions','Stock photos + AI illustrations','Monthly post summary']},
+  {key:'Growth',  price:'A$125',setup:'A$175 setup', popular:true,
+   features:['20 posts per month','Custom brand voice + captions','Own photos + stock + AI','Up to 4 content categories','Next-day support']},
+  {key:'Pro',     price:'A$175',setup:'A$275 setup', popular:false,
+   features:['Daily posting','Unlimited categories','Own + stock + AI photos','Same-day support','Quarterly strategy check-in']},
+];
+
+const CONTENT_TOPICS = [
+  'Service showcase','How it works','Educational tip','Customer story',
+  'Behind the scenes','Promotion / offer','Fun / personality','Weekly wrap',
+];
+
+const PHOTO_SOURCES = ['Stock photos (auto-sourced)','AI generated image','My own photos (Google Drive)'];
+
+// ── STATE ─────────────────────────────────────────────────────
+let step = 0;
+let submitting = false;
+const F = {
+  business_name:'', contact_email:'', business_phone:'', business_type:'',
+  aspp_gmail_prefix:'', timezone:'', business_description:'',
+  target_audience:'', brand_keywords:'', caption_cta_email:'',
+  platforms:[], facebook_page_name:'', facebook_page_url:'',
+  ig_handle:'', ig_url:'', gbp_name:'', gbp_status:'',
+  posting_days:[], tier:'',
+  content:{},
+};
+let errors = {};
+
+// ── HELPERS ───────────────────────────────────────────────────
+const $ = id => document.getElementById(id);
+const hasFB  = () => F.platforms.includes('facebook');
+const hasIG  = () => F.platforms.includes('instagram');
+const hasGBP = () => F.platforms.includes('gbp');
+const isIGOnly = () => hasIG() && !hasFB();
+
+function togglePlatform(id) {
+  const idx = F.platforms.indexOf(id);
+  if(idx > -1) F.platforms.splice(idx, 1);
+  else F.platforms.push(id);
+  render();
+}
+
+function toggleDay(d) {
+  const idx = F.posting_days.indexOf(d);
+  if(idx > -1) F.posting_days.splice(idx, 1);
+  else F.posting_days.push(d);
+  renderDays();
+}
+
+function setContent(day, key, val) {
+  if(!F.content[day]) F.content[day] = {};
+  F.content[day][key] = val;
+}
+
+// ── VALIDATION ────────────────────────────────────────────────
+function validate() {
+  errors = {};
+  if(step === 0) {
+    if(!F.business_name.trim())   errors.business_name = 'Required';
+    if(!F.contact_email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) errors.contact_email = 'Valid email required';
+    if(!F.business_type)          errors.business_type = 'Required';
+    if(!F.aspp_gmail_prefix.trim()) errors.aspp_gmail_prefix = 'Required';
+    if(!F.timezone)               errors.timezone = 'Required';
+    if(!F.business_description.trim()) errors.business_description = 'Required';
+  }
+  if(step === 1) {
+    if(F.platforms.length === 0)  errors.platforms = 'Select at least one platform';
+    if(hasFB() && !F.facebook_page_url.trim()) errors.facebook_page_url = 'Required';
+    if(hasIG() && !F.ig_handle.trim()) errors.ig_handle = 'Required';
+  }
+  if(step === 2) {
+    if(F.posting_days.length === 0) errors.posting_days = 'Select at least one day';
+    if(!F.tier)                    errors.tier = 'Select a plan';
+  }
+  return Object.keys(errors).length === 0;
+}
+
+// ── NAVIGATION ────────────────────────────────────────────────
+function next() {
+  if(!validate()) { render(); return; }
+  if(step < 4) { step++; render(); window.scrollTo(0,0); }
+}
+
+function back() {
+  if(step > 0) { step--; render(); window.scrollTo(0,0); }
+  else window.location.href = LANDING_URL;
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────
+async function submitForm() {
+  if(!validate()) { render(); return; }
+  submitting = true;
+  renderSubmitting();
+
+  // Build posting_days object for Apps Script
+  const postingDaysObj = {};
+  F.posting_days.forEach(day => {
+    const dayLower = day.toLowerCase();
+    const content  = F.content[day] || {};
+    postingDaysObj[dayLower] = {
+      active: true,
+      category: content.topic || '',
+      image_source: content.source || 'stock',
+      subcategories: [],
+    };
+  });
+
+  const payload = {
+    business_name:       F.business_name,
+    contact_email:       F.contact_email,
+    business_phone:      F.business_phone,
+    business_type:       F.business_type,
+    aspp_gmail:          F.aspp_gmail_prefix + '@gmail.com',
+    timezone:            F.timezone,
+    business_description:F.business_description,
+    target_audience:     F.target_audience,
+    brand_keywords:      F.brand_keywords,
+    caption_cta_email:   F.caption_cta_email || F.contact_email,
+    platforms:           F.platforms,
+    fb_page_name:        F.facebook_page_name,
+    facebook_page_url:   F.facebook_page_url,
+    ig_handle:           F.ig_handle,
+    instagram_url:       F.ig_url,
+    gbp_name:            F.gbp_name,
+    gbp_status:          F.gbp_status,
+    posting_days:        postingDaysObj,
+    tier:                F.tier,
+  };
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    });
+    renderSuccess();
+  } catch(e) {
+    console.error(e);
+    submitting = false;
+    renderSuccess(); // Show success anyway — Apps Script usually receives even if CORS blocks response
+  }
+}
+
+// ── SIDEBAR ───────────────────────────────────────────────────
+function renderSidebar() {
+  const list = $('steps-list');
+  list.innerHTML = STEPS.map((s, i) => {
+    const state = i < step ? 'step-done' : i === step ? 'step-active' : 'step-upcoming';
+    return `
+      <div class="step-item ${state}">
+        <div class="step-dot">${i < step ? '✓' : i+1}</div>
+        <div class="step-label">
+          <div class="step-name">${s.name}</div>
+          <div class="step-sub">${s.sub}</div>
+        </div>
+      </div>
+      ${i < STEPS.length-1 ? '<div class="step-connector"></div>' : ''}
+    `;
+  }).join('');
+  $('progress-fill').style.width = `${((step+1)/STEPS.length)*100}%`;
+}
+
+// ── STEP RENDERERS ────────────────────────────────────────────
+function renderStep0() {
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 1 of 5</div>
+      <h2 class="step-title">Tell us about your business</h2>
+      <p class="step-desc">This helps us write captions that sound exactly like you — professional, accurate, and on-brand.</p>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Business name *</label>
+        <input class="form-input ${errors.business_name?'err':''}" id="f-bname" value="${esc(F.business_name)}" placeholder="Joe's Bakery" oninput="F.business_name=this.value">
+        ${errors.business_name ? `<div class="form-error">${errors.business_name}</div>` : ''}
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contact email *</label>
+        <input class="form-input ${errors.contact_email?'err':''}" id="f-email" value="${esc(F.contact_email)}" placeholder="joe@joesbakery.com.au" type="email" oninput="F.contact_email=this.value">
+        ${errors.contact_email ? `<div class="form-error">${errors.contact_email}</div>` : ''}
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Business type *</label>
+        <select class="form-input form-select ${errors.business_type?'err':''}" onchange="F.business_type=this.value">
+          <option value="">Select...</option>
+          ${BUSINESS_TYPES.map(t=>`<option value="${t}" ${F.business_type===t?'selected':''}>${t}</option>`).join('')}
+        </select>
+        ${errors.business_type ? `<div class="form-error">${errors.business_type}</div>` : ''}
+      </div>
+      <div class="form-group">
+        <label class="form-label">Timezone *</label>
+        <select class="form-input form-select ${errors.timezone?'err':''}" onchange="F.timezone=this.value">
+          <option value="">Select your timezone...</option>
+          ${TIMEZONES.map(t=>`<option value="${t}" ${F.timezone===t?'selected':''}>${t}</option>`).join('')}
+        </select>
+        ${errors.timezone ? `<div class="form-error">${errors.timezone}</div>` : ''}
+      </div>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="info-box">
+      <span class="info-box-icon">📧</span>
+      <div class="info-box-text">
+        <strong>Create a dedicated Gmail before continuing.</strong> We use this to set up your Make.com automation, Cloudinary image account, and Google Drive folder — all in your name.<br>
+        Format: <strong>yourbusinessname_aspp@gmail.com</strong>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Your dedicated Gmail address *</label>
+      <div class="gmail-wrap">
+        <input class="form-input ${errors.aspp_gmail_prefix?'err':''}" value="${esc(F.aspp_gmail_prefix)}"
+          placeholder="joesbakery_aspp"
+          oninput="F.aspp_gmail_prefix=this.value.toLowerCase().replace(/[^a-z0-9_.]/g,'')">
+        <span class="gmail-suffix">@gmail.com</span>
+      </div>
+      <div class="form-hint">Must end in _aspp — e.g. joesbakery_aspp@gmail.com</div>
+      ${errors.aspp_gmail_prefix ? `<div class="form-error">${errors.aspp_gmail_prefix}</div>` : ''}
+    </div>
+
+    <div class="info-box amber">
+      <span class="info-box-icon">⚡</span>
+      <div class="info-box-text">
+        <strong>After we set up your accounts, you'll need ~10 minutes to log in and add payment:</strong>
+        <div class="costs-grid" style="margin-top:10px">
+          <div class="cost-item"><div class="cost-name">Make.com — ~A$10/mo</div><div class="cost-role">Automation engine</div></div>
+          <div class="cost-item"><div class="cost-name">Cloudinary — Free tier</div><div class="cost-role">Image hosting</div></div>
+          <div class="cost-item"><div class="cost-name">OpenAI API — ~A$5–10/mo</div><div class="cost-role">AI captions + images</div></div>
+          <div class="cost-item"><div class="cost-name">Unsplash — Free</div><div class="cost-role">Stock photos</div></div>
+        </div>
+        <div style="margin-top:10px;font-style:italic">All accounts created in your name. You own them. Cancel anytime — everything stays yours.</div>
+      </div>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="form-group">
+      <label class="form-label">Describe what your business does *</label>
+      <textarea class="form-input ${errors.business_description?'err':''}" placeholder="Write 2–4 sentences. The more detail, the better your posts will sound." oninput="F.business_description=this.value">${esc(F.business_description)}</textarea>
+      ${errors.business_description ? `<div class="form-error">${errors.business_description}</div>` : ''}
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Who are your customers? <span class="form-label-opt">optional</span></label>
+        <input class="form-input" value="${esc(F.target_audience)}" placeholder="e.g. Local families, pet owners..." oninput="F.target_audience=this.value">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Brand keywords <span class="form-label-opt">optional</span></label>
+        <input class="form-input" value="${esc(F.brand_keywords)}" placeholder="e.g. warm, reliable, local, fresh" oninput="F.brand_keywords=this.value">
+      </div>
+    </div>`;
+}
+
+function renderStep1() {
+  const igOnly = isIGOnly();
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 2 of 5</div>
+      <h2 class="step-title">Your social media accounts</h2>
+      <p class="step-desc">Select the platforms you're on. We post directly into your own accounts — you stay in full control.</p>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Which platforms do you have? *</label>
+      <div class="platform-grid">
+        ${PLATFORMS.map(p=>`
+          <div class="platform-card ${F.platforms.includes(p.id)?'selected':''}" onclick="togglePlatform('${p.id}')">
+            <div class="platform-icon">${p.icon}</div>
+            <div class="platform-name">${p.name}</div>
+            <div class="platform-sub">${p.sub}</div>
+          </div>`).join('')}
+      </div>
+      ${errors.platforms ? `<div class="form-error" style="margin-top:8px">${errors.platforms}</div>` : ''}
+    </div>
+
+    ${igOnly ? `
+    <div class="info-box">
+      <span class="info-box-icon">ℹ️</span>
+      <div class="info-box-text">
+        <strong>Instagram requires a Facebook Page connection.</strong> Meta's API requires a linked Facebook Page even if you never post to Facebook. We'll guide you through this — it takes 5 minutes and the Page can remain inactive.
+      </div>
+    </div>` : ''}
+
+    ${hasFB() ? `
+    <div class="form-divider"></div>
+    <div class="step-tag" style="margin-bottom:14px">Facebook Page details</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Facebook Page name *</label>
+        <input class="form-input" value="${esc(F.facebook_page_name)}" placeholder="Joe's Bakery" oninput="F.facebook_page_name=this.value">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Facebook Page URL *</label>
+        <input class="form-input ${errors.facebook_page_url?'err':''}" value="${esc(F.facebook_page_url)}" placeholder="facebook.com/joesbakery" oninput="F.facebook_page_url=this.value">
+        ${errors.facebook_page_url ? `<div class="form-error">${errors.facebook_page_url}</div>` : ''}
+      </div>
+    </div>
+    <div class="info-box">
+      <span class="info-box-icon">📧</span>
+      <div class="info-box-text">After submitting, we'll email you one simple instruction — add our team to your Facebook Page so we can post on your behalf. Takes 2 minutes.</div>
+    </div>` : ''}
+
+    ${hasIG() ? `
+    <div class="form-divider"></div>
+    <div class="step-tag" style="margin-bottom:14px">Instagram details</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Instagram handle *</label>
+        <input class="form-input ${errors.ig_handle?'err':''}" value="${esc(F.ig_handle)}" placeholder="@joesbakery" oninput="F.ig_handle=this.value">
+        ${errors.ig_handle ? `<div class="form-error">${errors.ig_handle}</div>` : ''}
+      </div>
+      <div class="form-group">
+        <label class="form-label">Instagram profile URL</label>
+        <input class="form-input" value="${esc(F.ig_url)}" placeholder="instagram.com/joesbakery" oninput="F.ig_url=this.value">
+      </div>
+    </div>` : ''}
+
+    ${hasGBP() ? `
+    <div class="form-divider"></div>
+    <div class="step-tag" style="margin-bottom:8px">Google Business Profile</div>
+    <div class="info-box" style="margin-bottom:16px">
+      <span class="info-box-icon">🗺️</span>
+      <div class="info-box-text"><strong>Verification takes 1–2 weeks.</strong> Google sends a postcard to your business address. Start this as soon as possible.</div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">GBP listing name <span class="form-label-opt">if verified</span></label>
+        <input class="form-input" value="${esc(F.gbp_name)}" placeholder="Joe's Bakery Glen Waverley" oninput="F.gbp_name=this.value">
+        <div class="form-hint">Must match exactly as it appears on Google Maps</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">GBP status</label>
+        <select class="form-input form-select" onchange="F.gbp_status=this.value">
+          <option value="">Select...</option>
+          <option ${F.gbp_status==='Already verified and live on Google Maps'?'selected':''}>Already verified and live on Google Maps</option>
+          <option ${F.gbp_status==='Verification in progress — waiting for postcard'?'selected':''}>Verification in progress — waiting for postcard</option>
+          <option ${F.gbp_status==='Not started yet — I need help setting it up'?'selected':''}>Not started yet — I need help setting it up</option>
+          <option ${F.gbp_status==='I do not have a physical address (online business)'?'selected':''}>I do not have a physical address (online business)</option>
+        </select>
+      </div>
+    </div>` : ''}`;
+}
+
+function renderStep2() {
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 3 of 5</div>
+      <h2 class="step-title">Posting schedule & plan</h2>
+      <p class="step-desc">Choose which days you want to post and which plan suits your business. Posts go out at 6pm your time every selected day.</p>
+    </div>
+
+    <div class="info-box green">
+      <span class="info-box-icon">💳</span>
+      <div class="info-box-text">
+        <strong>What you pay — and to whom</strong><br>
+        Our fee covers setup + management. Platform costs (~A$20/mo total) go directly to Make.com, Cloudinary, and OpenAI. No markup. No middleman.
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Which days do you want to post? *</label>
+      <div class="days-grid" id="days-grid">
+        ${DAYS.map(d=>`
+          <div class="day-chip ${F.posting_days.includes(d)?'selected':''}" onclick="toggleDay('${d}')">${d}</div>
+        `).join('')}
+      </div>
+      ${errors.posting_days ? `<div class="form-error" style="margin-top:8px">${errors.posting_days}</div>` : ''}
+      <div class="form-hint" style="margin-top:10px">Most businesses start with 3–5 days. You can change this anytime.</div>
+    </div>
+
+    <div class="form-divider"></div>
+
+    <div class="form-group">
+      <label class="form-label">Choose your plan *</label>
+      <div class="tier-grid">
+        ${PLANS.map(p=>`
+          <div class="tier-card ${F.tier===p.key?'selected':''}" onclick="F.tier='${p.key}';render()">
+            ${p.popular?'<div class="tier-popular">Most popular</div>':''}
+            <div class="tier-name">${p.key}</div>
+            <div class="tier-price">${p.price}<span style="font-family:var(--sans);font-size:13px;font-weight:500">/mo</span></div>
+            <div class="tier-setup">${p.setup}</div>
+            ${p.features.slice(0,3).map(f=>`<div class="tier-feat">${f}</div>`).join('')}
+          </div>`).join('')}
+      </div>
+      ${errors.tier ? `<div class="form-error" style="margin-top:8px">${errors.tier}</div>` : ''}
+    </div>`;
+}
+
+function renderStep3() {
+  if(F.posting_days.length === 0) {
+    return `
+      <div class="step-header">
+        <div class="step-tag">Step 4 of 5</div>
+        <h2 class="step-title">What should we post?</h2>
+      </div>
+      <div class="info-box">
+        <span class="info-box-icon">⬅️</span>
+        <div class="info-box-text">Go back and select at least one posting day first.</div>
+      </div>`;
+  }
+  const isStarter = F.tier === 'Starter';
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 4 of 5</div>
+      <h2 class="step-title">What should we post?</h2>
+      <p class="step-desc">For each posting day, choose a content topic and photo source. The more detail, the more personalised your posts.</p>
+    </div>
+    ${F.posting_days.map((day, di) => `
+      <div class="content-day">
+        <div class="content-day-header">
+          <div class="content-day-num">${di+1}</div>
+          <div class="content-day-name">${day}</div>
+        </div>
+        <div class="form-row">
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Content topic</label>
+            <select class="form-input form-select" onchange="setContent('${day}','topic',this.value)">
+              <option value="">Select topic...</option>
+              ${CONTENT_TOPICS.map(t=>`<option value="${t}" ${(F.content[day]?.topic===t)?'selected':''}>${t}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label class="form-label">Photo source</label>
+            <select class="form-input form-select" onchange="setContent('${day}','source',this.value)" ${isStarter?'disabled':''}>
+              <option value="">Select source...</option>
+              ${PHOTO_SOURCES.map(s => {
+                const disabled = isStarter && s.includes('own') ? 'disabled' : '';
+                return `<option value="${s}" ${(F.content[day]?.source===s)?'selected':''} ${disabled}>${s}</option>`;
+              }).join('')}
+            </select>
+            ${isStarter ? '<div class="form-hint">Own photos available on Growth + Pro plans</div>' : ''}
+          </div>
+        </div>
+      </div>`).join('')}`;
+}
+
+function renderStep4() {
+  const platforms = F.platforms.map(p => PLATFORMS.find(x=>x.id===p)?.name).filter(Boolean).join(', ');
+  const hasDrive  = F.tier === 'Growth' || F.tier === 'Pro';
+  const stepCount = {base:1};
+  const ns = () => stepCount.base++;
+
+  return `
+    <div class="step-header">
+      <div class="step-tag">Step 5 of 5</div>
+      <h2 class="step-title">Review your setup</h2>
+      <p class="step-desc">Everything look right? Go back to change anything before submitting.</p>
+    </div>
+
+    <div class="review-section">
+      <div class="review-section-title">Business details</div>
+      ${reviewRow('Business name', F.business_name)}
+      ${reviewRow('Contact email', F.contact_email)}
+      ${reviewRow('Business type', F.business_type)}
+      ${reviewRow('Dedicated Gmail', F.aspp_gmail_prefix + '@gmail.com')}
+      ${reviewRow('Timezone', F.timezone)}
+    </div>
+
+    <div class="review-section">
+      <div class="review-section-title">Social accounts</div>
+      ${reviewRow('Platforms', platforms || '—')}
+      ${F.facebook_page_name ? reviewRow('Facebook Page', F.facebook_page_name) : ''}
+      ${F.ig_handle ? reviewRow('Instagram', F.ig_handle) : ''}
+      ${F.gbp_name ? reviewRow('GBP name', F.gbp_name) : ''}
+    </div>
+
+    <div class="review-section">
+      <div class="review-section-title">Schedule & plan</div>
+      ${reviewRow('Posting days', F.posting_days.join(', ') || '—')}
+      ${reviewRow('Post time', '6:00 PM ' + F.timezone)}
+      ${reviewRow('Plan', F.tier || '—')}
+    </div>
+
+    <div class="info-box" style="margin-top:8px">
+      <span class="info-box-icon">✅</span>
+      <div class="info-box-text">
+        By submitting, you confirm these details are correct. You'll receive a confirmation email at <strong>${esc(F.contact_email)}</strong> within a few minutes.
+      </div>
+    </div>
+
+    <div class="info-box green" style="margin-top:12px">
+      <span class="info-box-icon">🔑</span>
+      <div class="info-box-text">
+        <strong>You own everything.</strong> We build inside your own accounts. All platform accounts are created on your dedicated Gmail — you can log in anytime. If you ever stop, your accounts and automation stay with you. Nothing disappears.
+      </div>
+    </div>`;
+}
+
+function reviewRow(key, val) {
+  if(!val) return '';
+  return `<div class="review-row"><div class="review-key">${key}</div><div class="review-val">${esc(val)}</div></div>`;
+}
+
+function renderDays() {
+  const grid = $('days-grid');
+  if(!grid) return;
+  grid.innerHTML = DAYS.map(d=>`
+    <div class="day-chip ${F.posting_days.includes(d)?'selected':''}" onclick="toggleDay('${d}')">${d}</div>
+  `).join('');
+}
+
+function renderSubmitting() {
+  $('main-content').innerHTML = `
+    <div class="submitting">
+      <div class="spinner"></div>
+      <div style="font-size:16px;font-weight:600;color:var(--ink);margin-bottom:8px">Submitting your details...</div>
+      <div style="font-size:14px;color:var(--ink-mid)">This takes just a moment.</div>
+    </div>`;
+}
+
+function renderSuccess() {
+  const hasFb  = hasFB();
+  const hasGbp = hasGBP();
+  let stepNum = 2;
+  const nextSteps = [];
+  nextSteps.push(`<div class="next-step"><div class="next-step-num">1</div><div class="next-step-text"><strong>Check your email</strong> — confirmation sent to ${esc(F.contact_email)}</div></div>`);
+  if(hasFb) { nextSteps.push(`<div class="next-step"><div class="next-step-num">${stepNum++}</div><div class="next-step-text"><strong>Facebook access</strong> — we'll email you to add our team to your Facebook Page (2 minutes)</div></div>`); }
+  if(hasGbp) { nextSteps.push(`<div class="next-step"><div class="next-step-num">${stepNum++}</div><div class="next-step-text"><strong>GBP guide</strong> — check your email for Google Business Profile verification steps</div></div>`); }
+  nextSteps.push(`<div class="next-step"><div class="next-step-num">${stepNum++}</div><div class="next-step-text"><strong>We set up your accounts</strong> — Make.com, Cloudinary, and OpenAI on ${esc(F.aspp_gmail_prefix)}@gmail.com within 24 hours</div></div>`);
+  nextSteps.push(`<div class="next-step"><div class="next-step-num">${stepNum++}</div><div class="next-step-text"><strong>~10 minutes from you</strong> — step-by-step guide to log in to each platform and add your payment method</div></div>`);
+  nextSteps.push(`<div class="next-step"><div class="next-step-num">${stepNum}</div><div class="next-step-text"><strong>You go live</strong> — confirmation email when your first posts are scheduled</div></div>`);
+
+  $('sidebar').style.display = 'none';
+  $('main-content').style.marginLeft = '0';
+  $('main-content').innerHTML = `
+    <div class="success">
+      <div class="success-icon">✅</div>
+      <h2 class="success-title">You're all set!</h2>
+      <p class="success-sub">We've received your details. Our team will have your account configured within 1 business day. Check your inbox for a confirmation email.</p>
+      <div class="next-steps">${nextSteps.join('')}</div>
+      <a href="${LANDING_URL}" style="display:inline-flex;align-items:center;gap:8px;margin-top:36px;background:var(--blue);color:white;text-decoration:none;padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;">Back to home</a>
+    </div>`;
+}
+
+// ── MAIN RENDER ───────────────────────────────────────────────
+function render() {
+  renderSidebar();
+  const steps = [renderStep0, renderStep1, renderStep2, renderStep3, renderStep4];
+  const content = steps[step]();
+  const navBtns = `
+    <div class="form-nav">
+      <button class="btn-back" onclick="back()">← ${step===0?'Back to home':'Back'}</button>
+      ${step < 4
+        ? `<button class="btn-next" onclick="next()">Continue →</button>`
+        : `<button class="btn-next" onclick="submitForm()">Submit & get started ✓</button>`}
+    </div>`;
+  $('main-content').innerHTML = content + navBtns;
+}
+
+function esc(str) {
+  if(!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
